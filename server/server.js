@@ -7,7 +7,8 @@
 var app = require('./app');
 var debug = require('debug')('duckfeed:server');
 var http = require('http');
-const serverPort = require ('./config/ports').serverPort;
+
+const serverPort = require ('./config/server').port;
 
 /**
  * Get port from environment and store in Express.

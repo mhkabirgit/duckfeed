@@ -2,12 +2,12 @@ var mongoose = require('mongoose');
 var chai = require('chai');
 var assert = chai.assert;
 var User = require('../../../server/models/user');
-const mongodb = require('../../../server/config/mongoose').testMongoDB;
+const serverDB = require('../../../server/config/server').testdb;
 
 describe('Database Test', function(){
 
   before(function(){
-    var db = mongoose.createConnection(mongodb, { useNewUrlParser: true });
+    var db = mongoose.createConnection(serverDB, { useNewUrlParser: true });
     db.on("error", console.error.bind(console, "connection error"));
     db.once("open", function(){
       console.log('DB connection opened');
