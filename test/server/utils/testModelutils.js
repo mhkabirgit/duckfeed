@@ -16,9 +16,9 @@ describe('Model Utilities Tests', function(){
   const rice =new Food({name:'rice',type:grain, description:'cracked rice'});
   const scheduledlocation= new Location({longitude:40.39, latitude:30.23});
   const scheduledtime = new ScheduledTime({hour:10, minute:30, second:0});
-  const scheduledfeeding = new ScheduledFeeding({location:scheduledlocation, scheduledTime: scheduledtime, food:rice, duckCount:10, feedAmount:5});
+  const scheduledfeeding = new ScheduledFeeding({user: user, location:scheduledlocation, scheduledTime: scheduledtime, food:rice, duckCount:10, feedAmount:5});
   var today = new Date(2018, 08, 25);
-  const feeding = getFeeding(user, today, scheduledfeeding);
+  const feeding = getFeeding(today, scheduledfeeding);
   it('Created User has username testuser', function(){
     assert.equal(user.username, 'testuser');
   });
