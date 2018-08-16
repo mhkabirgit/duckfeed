@@ -1,12 +1,13 @@
 var express = require('express');
 var logger = require('morgan');
+var config = require('config');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var session = require('express-session');
 var cors = require('cors');
 
-const serverDb = require('./config/server').db;
+const serverDb = config.DBHost;
 
 var indexRouter = require('./routes/index');
 var userRouter = require('./routes/users');
@@ -22,6 +23,12 @@ db.once("open", function(){console.log('MongoDB Connection succeded')});
 app.use(cors({origin:['http://localhost:3005'],
     methods:['GET','POST'],
     credentials: true }));
+
+//don't show the log when it is test
+if(config.util.getEnv('NODE_ENV') !== 'test') {
+    //use morgan to log at command line
+    app.use(logger('combined')); //'combined' outputs the Apache style LOGs
+}
 
 app.use(logger('dev'));
 app.use(bodyParser.json());

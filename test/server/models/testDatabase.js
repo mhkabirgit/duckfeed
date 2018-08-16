@@ -1,8 +1,12 @@
+//During the test the env variable is set to test
+process.env.NODE_ENV = 'test';
+
 var mongoose = require('mongoose');
+var config = require('config');
 var chai = require('chai');
 var assert = chai.assert;
 var User = require('../../../server/models/user');
-const serverDB = require('../../../server/config/server').testdb;
+const serverDB = config.DBHost;
 
 describe('Database Test', function(){
 

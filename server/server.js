@@ -5,10 +5,11 @@
  */
 
 var app = require('./app');
+var config = require('config');
 var debug = require('debug')('duckfeed:server');
 var http = require('http');
 
-const serverPort = require ('./config/server').port;
+const serverPort = config.ServerPort;
 
 /**
  * Get port from environment and store in Express.
@@ -92,3 +93,5 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+module.exports= server;
