@@ -1,9 +1,9 @@
 var Feeding = require('../models/feeding');
 
 module.exports.getFeedingFromScheduled = function(date, scheduledfeeding){
-  date.setHours(scheduledfeeding.scheduledTime.hours);
-  date.setMinutes(scheduledfeeding.scheduledTime.minutes);
-  date.setSeconds(scheduledfeeding.scheduledTime.seconds);
+  date.setHours(scheduledfeeding.hours);
+  date.setMinutes(scheduledfeeding.minutes);
+  date.setSeconds(scheduledfeeding.seconds);
   return new Feeding({user:scheduledfeeding.user,
                       longitude:scheduledfeeding.longitude,
                       latitude:scheduledfeeding.latitude,
