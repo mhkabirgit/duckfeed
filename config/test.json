@@ -1,4 +1,5 @@
 {
-  "ServerPort":3006,
+  "ClientPort":3005,
+  "ServerPort":3007,
   "DBHost": "mongodb://127.0.0.1:27017/testduckfeed"
 }

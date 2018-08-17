@@ -8,6 +8,8 @@ var session = require('express-session');
 var cors = require('cors');
 
 const serverDb = config.DBHost;
+const clientPort = config.ClientPort;
+const corsOrigin = 'http://localhost:'+clientPort;
 
 var indexRouter = require('./routes/index');
 var userRouter = require('./routes/users');
@@ -20,7 +22,7 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection Error'));
 db.once("open", function(){console.log('MongoDB Connection succeded')});
 
-app.use(cors({origin:['http://localhost:3005'],
+app.use(cors({origin:[corsOrigin],
     methods:['GET','POST'],
     credentials: true }));
 
