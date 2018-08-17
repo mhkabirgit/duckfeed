@@ -8,16 +8,18 @@ var User = require('../../../server/models/user');
 var FoodType = require('../../../server/models/foodtype');
 var Food = require('../../../server/models/food');
 var Feeding = require('../../../server/models/feeding');
-var ScheduledFeeding = require('../../../server/models/scheduledfeeding');
-var getFeeding = require('../../../server/utils/modelutils').getFeedingFromScheduled;
+var Schedule = require('../../../server/models/schedule');
+var getFeeding = require('../../../server/utils/modelutils').getFeedingFromSchedule;
 
 describe('Model Utilities Tests', function(){
+  var today = new Date(2018, 08, 25);
   const user = new User({username:'testuser', email:'email@test.com', password:'password'});
   const grain = new FoodType({name:'grain'});
   const rice =new Food({name:'rice',type:grain, description:'cracked rice'});
-  const scheduledfeeding = new ScheduledFeeding({user: user, longitude:40.39, latitude:30.23, hours:10, minutes:30, seconds:0, food:rice, duckCount:10, feedAmount:5});
-  var today = new Date(2018, 08, 25);
-  const feeding = getFeeding(today, scheduledfeeding);
+
+  const schedule = new Schedule({user: user, longitude:40.39, latitude:30.23, hours:10, minutes:30, seconds:0, food:rice, duckCount:10, feedAmount:5, startDate:today});
+
+  const feeding = getFeeding(today, schedule);
   it('Created User has username testuser', function(){
     assert.equal(user.username, 'testuser');
   });
@@ -31,8 +33,8 @@ describe('Model Utilities Tests', function(){
     assert.equal(rice.type.name, 'grain');
   });
 
-  it('Created ScheduleFeeding has food type grain', function(){
-    assert.equal(scheduledfeeding.food.type.name, 'grain');
+  it('Created Schedule has food type grain', function(){
+    assert.equal(schedule.food.type.name, 'grain');
   });
 
   it('Derived Feeding has food type grain', function(){

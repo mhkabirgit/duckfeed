@@ -1,14 +1,14 @@
 var Feeding = require('../models/feeding');
 
-module.exports.getFeedingFromScheduled = function(date, scheduledfeeding){
-  date.setHours(scheduledfeeding.hours);
-  date.setMinutes(scheduledfeeding.minutes);
-  date.setSeconds(scheduledfeeding.seconds);
-  return new Feeding({user:scheduledfeeding.user,
-                      longitude:scheduledfeeding.longitude,
-                      latitude:scheduledfeeding.latitude,
+module.exports.getFeedingFromSchedule = function(date, schedule){
+  date.setHours(schedule.hours);
+  date.setMinutes(schedule.minutes);
+  date.setSeconds(schedule.seconds);
+  return new Feeding({user:schedule.user,
+                      longitude:schedule.longitude,
+                      latitude:schedule.latitude,
                       time: date,
-                      food:scheduledfeeding.food,
-                      duckCount: scheduledfeeding.duckCount,
-                      feedAmount: scheduledfeeding.feedAmount});
+                      food:schedule.food,
+                      duckCount: schedule.duckCount,
+                      feedAmount: schedule.feedAmount});
 }
