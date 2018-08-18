@@ -13,7 +13,7 @@ module.exports.create_user_post = [
   body('password', 'Password must not be empty').isLength({min:1}).trim(),
   body('passwordcnf', 'Password confirmation must not be empty').isLength({min:1}).trim(),
 
-  sanitizeBody('username').trim().escape(),
+  sanitizeBody('*').trim().escape(),
 
   (req, res, next) => {
     const errors = validationResult(req);
@@ -80,8 +80,7 @@ module.exports.signin_post = function(req, res, next) {
       }
       else {
         req.session.user=user;
-        const isAdmin = user.username === 'admin' ? true : false;
-        return res.status(200).json({user:user, isAdmin: isAdmin});
+        return res.status(200).json({user:user});
       }
     });
   }
@@ -92,6 +91,7 @@ module.exports.signin_post = function(req, res, next) {
 
 
 module.exports.signout_post = function (req, res, next) {
+  console.log('signout received');
   if(req.session.user && req.cookies.user_sid) {
     res.clearCookie('user_sid');
     return res.status(200).json({status:'success'});

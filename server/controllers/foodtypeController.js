@@ -82,7 +82,7 @@ module.exports.update = [
     const errors = validationResult(req);
 
     if(!errors.isEmpty()) {
-      return res.status(400).json({error: 'Bad Request');
+      return res.status(400).json({error: 'Bad Request'});
     }
     else {
       FoodType.findByIdAndUpdate(req.params.id, {name: req.body.name}, {}, function(err, foodtype){

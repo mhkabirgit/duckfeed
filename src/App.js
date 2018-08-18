@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
-import {Navbar, Nav, NavItem} from 'react-bootstrap';
+import { BrowserRouter, Switch, Route} from 'react-router-dom';
 import axios from 'axios';
 
 import HomeComponent from './components/HomeComponent';
-import SigninComponent from './components/SigninComponent';
-import SignoutComponent from './components/SignoutComponent';
-import SignupComponent from './components/SignupComponent';
+import HeaderComponent from './components/HeaderComponent';
 
+import SignupFormContainer from './containers/SignupFormContainer';
+import SigninFormContainer from './containers/SigninFormContainer';
+import SignoutContainer from './containers/SignoutContainer';
 
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
@@ -23,63 +22,38 @@ class App extends Component {
       <BrowserRouter>
       <div className='container-fluid'>
       <div className='App'>
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">DUCK FEED</h1>
-        </header>
-        <Navbar>
-          <Nav>
-            <NavItem eventKey={1}>
-                <Link to={'/'} className='nav-link'>Home</Link>
-            </NavItem>
-          </Nav>
-
-          <Nav>
-              <NavItem eventKey={2}>
-                  <Link to={'/feed/add'} className='nav-link'>Add Feed</Link>
-              </NavItem>
-          </Nav>
-          <Nav>
-              <NavItem eventKey={3}>
-                  <Link to={'/schedule/add'} className='nav-link'>Add Schedule</Link>
-              </NavItem>
-          </Nav>
-          <Nav>
-              <NavItem eventKey={4}>
-                  <Link to={'/food/add'} className='nav-link'>Add Food</Link>
-              </NavItem>
-          </Nav>
-          <Nav>
-              <NavItem eventKey={5}>
-                <Link to={'/foodtype/add'} className='nav-link'> Add Food Type</Link>
-              </NavItem>
-          </Nav>
-
-          <Nav pullRight>
-              <NavItem eventKey={6}>
-                  <Link to={'/user/signin'} className='nav-link'>Sign In</Link>
-              </NavItem>
-          </Nav>
-          <Nav pullRight>
-              <NavItem eventKey={7}>
-                  <Link to={'/user/signout'} className='nav-link'>Sign Out</Link>
-              </NavItem>
-          </Nav>
-          <Nav pullRight>
-              <NavItem eventKey={8}>
-                  <Link to={'/user/signup'} className='nav-link'>Sign Up</Link>
-              </NavItem>
-          </Nav>
-          </Navbar>
+          <HeaderComponent/>
           <Switch>
               <Route exact path='/' component={HomeComponent}/>
+
               <Route exact path='/feed/add' component={HomeComponent}/>
               <Route exact path='/schedule/add' component={HomeComponent}/>
               <Route exact path='/food/add' component={HomeComponent}/>
               <Route exact path='/foodtype/add' component={HomeComponent}/>
-              <Route exact path='/user/signin' component={SigninComponent}/>
-              <Route exact path='/user/signout' component={SignoutComponent}/>
-              <Route exact path='/user/signup' component={SignupComponent}/>
+
+              <Route exact path='/feed/detail/:id' component={HomeComponent}/>
+              <Route exact path='/schedule/detail/:id' component={HomeComponent}/>
+              <Route exact path='/food/detail/:id' component={HomeComponent}/>
+              <Route exact path='/foodtype/detail/:id' component={HomeComponent}/>
+
+              <Route exact path='/feed/update/:id' component={HomeComponent}/>
+              <Route exact path='/schedule/update/:id' component={HomeComponent}/>
+              <Route exact path='/food/update/:id' component={HomeComponent}/>
+              <Route exact path='/foodtype/update/:id' component={HomeComponent}/>
+
+              <Route exact path='/feed/delete/:id' component={HomeComponent}/>
+              <Route exact path='/schedule/delete/:id' component={HomeComponent}/>
+              <Route exact path='/food/delete/:id' component={HomeComponent}/>
+              <Route exact path='/foodtype/delete/:id' component={HomeComponent}/>
+
+              <Route exact path='/feed/all' component={HomeComponent}/>
+              <Route exact path='/schedule/all' component={HomeComponent}/>
+              <Route exact path='/food/all' component={HomeComponent}/>
+              <Route exact path='/foodtype/all' component={HomeComponent}/>
+
+              <Route exact path='/user/signin' component={SigninFormContainer}/>
+              <Route exact path='/user/signout' component={SignoutContainer}/>
+              <Route exact path='/user/signup' component={SignupFormContainer}/>
           </Switch>
           </div>
       </div>
