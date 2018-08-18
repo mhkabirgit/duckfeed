@@ -2,7 +2,7 @@
 import {
 	SIGNUP_USER, SIGNUP_USER_SUCCESS, SIGNUP_USER_FAILURE, RESET_USER,
 	SIGNIN_USER, SIGNIN_USER_SUCCESS,  SIGNIN_USER_FAILURE,
-	LOGOUT_USER_SUCCESS
+	LOGOUT_USER, LOGOUT_USER_SUCCESS, LOGOUT_USER_FAILURE
 } from '../actions/userActions';
 
 //user = userobj,
@@ -38,6 +38,8 @@ export default function(state = INITIAL_STATE, action) {
 
     case LOGOUT_USER_SUCCESS:
         return {...state, user:null, status:'logout', error:null, loading: false};
+    case LOGOUT_USER:
+    case LOGOUT_USER_FAILURE:
     default:
     return state;
   }
