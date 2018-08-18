@@ -4,14 +4,17 @@ import BASE_URL from '../backend/BaseUrl';
 export const FETCH_FOODTYPE_LIST = 'FETCH_FOODTYPE_LIST';
 export const FETCH_FOODTYPE_LIST_SUCCESS = 'FETCH_FOODTYPE_LIST_SUCCESS';
 export const FETCH_FOODTYPE_LIST_FAILURE = 'FETCH_FOODTYPE_LIST_FAILURE';
+export const RESET_FOODTYPE_LIST = 'RESET_FOODTYPE_LIST';
 
 export const FETCH_FOODTYPE = 'FETCH_FOODTYPE';
 export const FETCH_FOODTYPE_SUCCESS = 'FETCH_FOODTYPE_SUCCESS';
 export const FETCH_FOODTYPE_FAILURE = 'FETCH_FOODTYPE_FAILURE';
+export const RESET_ACTIVE_FOODTYPE = 'RESET_ACTIVE_FOODTYPE';
 
 export const ADD_FOODTYPE = 'ADD_FOODTYPE';
 export const ADD_FOODTYPE_SUCCESS = 'ADD_FOODTYPE_SUCCESS';
 export const ADD_FOODTYPE_FAILURE = 'ADD_FOODTYPE_FAILURE';
+export const RESET_NEW_FOODTYPE = 'RESET_NEW_FOODTYPE';
 
 export const UPDATE_FOODTYPE = 'UPDATE_FOODTYPE';
 export const UPDATE_FOODTYPE_SUCCESS = 'UPDATE_FOODTYPE_SUCCESS';
@@ -20,8 +23,7 @@ export const UPDATE_FOODTYPE_FAILURE = 'UPDATE_FOODTYPE_FAILURE';
 export const DELETE_FOODTYPE = 'DELETE_FOODTYPE';
 export const DELETE_FOODTYPE_SUCCESS = 'DELETE_FOODTYPE_SUCCESS';
 export const DELETE_FOODTYPE_FAILURE = 'DELETE_FOODTYPE_FAILURE';
-
-export const RESET_FOODTYPE = 'RESET_FOODTYPE';
+export const RESET_DELETED_FOODTYPE = 'RESET_DELETED_FOODTYPE';
 
 
 export function fetchFoodtypeList(){
@@ -46,6 +48,13 @@ export function fetchFoodtypeListFailure(error){
   }
 }
 
+export function resetFoodtypeList (){
+  return {
+    type: RESET_FOODTYPE_LIST;
+  }
+}
+
+
 export function fetchFoodtype(id){
   const request = axios.get(`${BASE_URL}/foodtype/detail/${id}`);
   return {
@@ -67,6 +76,13 @@ export function fetchFoodtypeFailure(error){
     payload: error
   }
 }
+
+export function resetActiveFoodtype (){
+  return {
+    type: RESET_ACTIVE_FOODTYPE
+  }
+}
+
 
 
 export function addFoodtype(formValues){
@@ -93,10 +109,17 @@ export function addFoodtypeFailure(error){
   }
 }
 
+export function resetNewFoodtype (){
+  return {
+    type: RESET_NEW_FOODTYPE
+  }
+}
+
+
 export function updateFoodtype(id, formValues){
   const request = axios.post(`${BASE_URL}/foodtype/update/${id}`, formValues);
   return {
-    type: UPDA_FOODTYPE,
+    type: UPDATE_FOODTYPE,
     payload: request
   }
 }
@@ -142,8 +165,8 @@ export function deleteFoodtypeFailure(error){
   }
 }
 
-export function resetFoodtype (){
+export function resetDeletedFoodtype (){
   return {
-    type: RESET_FOODTYPE
+    type: RESET_DELETED_FOODTYPE
   }
 }

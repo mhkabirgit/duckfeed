@@ -4,14 +4,17 @@ import BASE_URL from '../backend/BaseUrl';
 export const FETCH_SCHEDULE_LIST = 'FETCH_SCHEDULE_LIST';
 export const FETCH_SCHEDULE_LIST_SUCCESS = 'FETCH_SCHEDULE_LIST_SUCCESS';
 export const FETCH_SCHEDULE_LIST_FAILURE = 'FETCH_SCHEDULE_LIST_FAILURE';
+export const RESET_SCHEDULE_LIST = 'RESET_SCHEDULE_LIST';
 
 export const FETCH_SCHEDULE = 'FETCH_SCHEDULE';
 export const FETCH_SCHEDULE_SUCCESS = 'FETCH_SCHEDULE_SUCCESS';
 export const FETCH_SCHEDULE_FAILURE = 'FETCH_SCHEDULE_FAILURE';
+export const RESET_ACTIVE_SCHEDULE = 'RESET_ACTIVE_SCHEDULE';
 
 export const ADD_SCHEDULE = 'ADD_SCHEDULE';
 export const ADD_SCHEDULE_SUCCESS = 'ADD_SCHEDULE_SUCCESS';
 export const ADD_SCHEDULE_FAILURE = 'ADD_SCHEDULE_FAILURE';
+export const RESET_NEW_SCHEDULE = 'RESET_NEW_SCHEDULE';
 
 export const UPDATE_SCHEDULE = 'UPDATE_SCHEDULE';
 export const UPDATE_SCHEDULE_SUCCESS = 'UPDATE_SCHEDULE_SUCCESS';
@@ -20,6 +23,7 @@ export const UPDATE_SCHEDULE_FAILURE = 'UPDATE_SCHEDULE_FAILURE';
 export const DELETE_SCHEDULE = 'DELETE_SCHEDULE';
 export const DELETE_SCHEDULE_SUCCESS = 'DELETE_SCHEDULE_SUCCESS';
 export const DELETE_SCHEDULE_FAILURE = 'DELETE_SCHEDULE_FAILURE';
+export const RESET_DELETED_SCHEDULE = 'RESET_DELETED_SCHEDULE';
 
 export const CONFIRM_SCHEDULE = 'CONFIRM_SCHEDULE';
 export const CONFIRM_SCHEDULE_SUCCESS = 'CONFIRM_SCHEDULE_SUCCESS';
@@ -28,9 +32,6 @@ export const CONFIRM_SCHEDULE_FAILURE = 'CONFIRM_SCHEDULE_FAILURE';
 export const CANCEL_SCHEDULE = 'CANCEL_SCHEDULE';
 export const CANCEL_SCHEDULE_SUCCESS = 'CANCEL_SCHEDULE_SUCCESS';
 export const CANCEL_SCHEDULE_FAILURE = 'CANCEL_SCHEDULE_FAILURE';
-
-
-export const RESET_SCHEDULE = 'RESET_SCHEDULE';
 
 
 export function fetchScheduleList(){
@@ -55,6 +56,13 @@ export function fetchScheduleListFailure(error){
   }
 }
 
+export function resetScheduleList (){
+  return {
+    type: RESET_SCHEDULE_LIST
+  }
+}
+
+
 export function fetchSchedule(id){
   const request = axios.get(`${BASE_URL}/schedule/detail/${id}`);
   return {
@@ -77,6 +85,11 @@ export function fetchScheduleFailure(error){
   }
 }
 
+export function resetActiveSchedule (){
+  return {
+    type: RESET_ACTIVE_SCHEDULE
+  }
+}
 
 export function addSchedule(formValues){
   const request = axios.post(`${BASE_URL}/schedule/add`, formValues);
@@ -101,6 +114,13 @@ export function addScheduleFailure(error){
     payload: error
   }
 }
+
+export function resetNewSchedule (){
+  return {
+    type: RESET_NEW_SCHEDULE
+  }
+}
+
 
 export function updateSchedule(id, formValues){
   const request = axios.post(`${BASE_URL}/schedule/update/${id}`, formValues);
@@ -151,6 +171,13 @@ export function deleteScheduleFailure(error){
   }
 }
 
+export function resetDeletedSchedule (){
+  return {
+    type: RESET_DELETED_SCHEDULE
+  }
+}
+
+
 
 export function confirmSchedule(id){
   const request = axios.post(`${BASE_URL}/schedule/confirm/${id}`);
@@ -198,13 +225,5 @@ export function cancelScheduleFailure(error){
   return {
     type: CANCEL_SCHEDULE_FAILURE,
     payload: error
-  }
-}
-
-
-
-export function resetSchedule (){
-  return {
-    type: RESET_SCHEDULE
   }
 }

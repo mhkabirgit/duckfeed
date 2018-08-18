@@ -4,14 +4,18 @@ import BASE_URL from '../backend/BaseUrl';
 export const FETCH_FEED_LIST = 'FETCH_FEED_LIST';
 export const FETCH_FEED_LIST_SUCCESS = 'FETCH_FEED_LIST_SUCCESS';
 export const FETCH_FEED_LIST_FAILURE = 'FETCH_FEED_LIST_FAILURE';
+export const RESET_FEED_LIST ='RESET_FEED_LIST';
 
 export const FETCH_FEED = 'FETCH_FEED';
 export const FETCH_FEED_SUCCESS = 'FETCH_FEED_SUCCESS';
-export const FETCH_FEED_FAILURE = 'FETCH_FEED_FAILURE';
+export const FETCH_FEED_FAILURE = 'FETCH_FEED_FAILURE'
+export const RESET_ACTIVE_FEED = 'RESET_ACTIVE_FEED';
+
 
 export const ADD_FEED = 'ADD_FEED';
 export const ADD_FEED_SUCCESS = 'ADD_FEED_SUCCESS';
 export const ADD_FEED_FAILURE = 'ADD_FEED_FAILURE';
+export const RESET_NEW_FEED = 'RESET_NEW_FEED';
 
 export const UPDATE_FEED = 'UPDATE_FEED';
 export const UPDATE_FEED_SUCCESS = 'UPDATE_FEED_SUCCESS';
@@ -20,8 +24,7 @@ export const UPDATE_FEED_FAILURE = 'UPDATE_FEED_FAILURE';
 export const DELETE_FEED = 'DELETE_FEED';
 export const DELETE_FEED_SUCCESS = 'DELETE_FEED_SUCCESS';
 export const DELETE_FEED_FAILURE = 'DELETE_FEED_FAILURE';
-
-export const RESET_FEED = 'RESET_FEED';
+export const RESET_DELETED_FEED = 'RESET_DELETED_FEED';
 
 
 export function fetchFeedList(){
@@ -46,6 +49,13 @@ export function fetchFeedListFailure(error){
   }
 }
 
+export function resetFeedList (){
+  return {
+    type: RESET_FEED_LIST;
+  }
+}
+
+
 export function fetchFeed(id){
   const request = axios.get(`${BASE_URL}/feed/detail/${id}`);
   return {
@@ -67,6 +77,13 @@ export function fetchFeedFailure(error){
     payload: error
   }
 }
+
+export function resetActiveFeed (){
+  return {
+    type: RESET_ACTIVE_FEED
+  }
+}
+
 
 
 export function addFeed(formValues){
@@ -92,6 +109,12 @@ export function addFeedFailure(error){
     payload: error
   }
 }
+export function resetNewFeed (){
+  return {
+    type: RESET_NEW_FEED
+  }
+}
+
 
 export function updateFeed(id, formValues){
   const request = axios.post(`${BASE_URL}/feed/update/${id}`, formValues);
@@ -142,8 +165,8 @@ export function deleteFeedFailure(error){
   }
 }
 
-export function resetFeed (){
+export function resetDeletedFeed (){
   return {
-    type: RESET_FEED
+    type: RESET_DELETED_FEED
   }
 }

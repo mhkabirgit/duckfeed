@@ -4,14 +4,17 @@ import BASE_URL from '../backend/BaseUrl';
 export const FETCH_FOOD_LIST = 'FETCH_FOOD_LIST';
 export const FETCH_FOOD_LIST_SUCCESS = 'FETCH_FOOD_LIST_SUCCESS';
 export const FETCH_FOOD_LIST_FAILURE = 'FETCH_FOOD_LIST_FAILURE';
+export const RESET_FOOD_LIST = 'RESET_FOOD_LIST';
 
 export const FETCH_FOOD = 'FETCH_FOOD';
 export const FETCH_FOOD_SUCCESS = 'FETCH_FOOD_SUCCESS';
 export const FETCH_FOOD_FAILURE = 'FETCH_FOOD_FAILURE';
+export const RESET_ACTIVE_FOOD = 'RESET_ACTIVE_FOOD';
 
 export const ADD_FOOD = 'ADD_FOOD';
 export const ADD_FOOD_SUCCESS = 'ADD_FOOD_SUCCESS';
 export const ADD_FOOD_FAILURE = 'ADD_FOOD_FAILURE';
+export const RESET_NEW_FOOD = 'RESET_NEW_FOOD';
 
 export const UPDATE_FOOD = 'UPDATE_FOOD';
 export const UPDATE_FOOD_SUCCESS = 'UPDATE_FOOD_SUCCESS';
@@ -20,8 +23,7 @@ export const UPDATE_FOOD_FAILURE = 'UPDATE_FOOD_FAILURE';
 export const DELETE_FOOD = 'DELETE_FOOD';
 export const DELETE_FOOD_SUCCESS = 'DELETE_FOOD_SUCCESS';
 export const DELETE_FOOD_FAILURE = 'DELETE_FOOD_FAILURE';
-
-export const RESET_FOOD = 'RESET_FOOD';
+export const RESET_DELETED_FOOD = 'RESET_DELETED_FOOD';
 
 
 export function fetchFoodList(){
@@ -46,6 +48,13 @@ export function fetchFoodListFailure(error){
   }
 }
 
+export function resetFoodList (){
+  return {
+    type: RESET_FOOD_LIST
+  }
+}
+
+
 export function fetchFood(id){
   const request = axios.get(`${BASE_URL}/food/detail/${id}`);
   return {
@@ -67,6 +76,13 @@ export function fetchFoodFailure(error){
     payload: error
   }
 }
+
+export function resetActiveFood (){
+  return {
+    type: RESET_ACTIVE_FOOD
+  }
+}
+
 
 
 export function addFood(formValues){
@@ -92,6 +108,13 @@ export function addFoodFailure(error){
     payload: error
   }
 }
+
+export function resetNewFood (){
+  return {
+    type: RESET_NEW_FOOD
+  }
+}
+
 
 export function updateFood(id, formValues){
   const request = axios.post(`${BASE_URL}/food/update/${id}`, formValues);
@@ -142,8 +165,8 @@ export function deleteFoodFailure(error){
   }
 }
 
-export function resetFood (){
+export function resetDeletedFood (){
   return {
-    type: RESET_FOOD
+    type: RESET_DELETED_FOOD
   }
 }
