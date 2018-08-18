@@ -7,9 +7,9 @@ var assert = chai.assert;
 var User = require('../../../server/models/user');
 var FoodType = require('../../../server/models/foodtype');
 var Food = require('../../../server/models/food');
-var Feeding = require('../../../server/models/feeding');
+var Feed = require('../../../server/models/feed');
 var Schedule = require('../../../server/models/schedule');
-var getFeeding = require('../../../server/utils/modelutils').getFeedingFromSchedule;
+var getFeeding = require('../../../server/utils/modelutils').getFeedFromSchedule;
 
 describe('Model Utilities Tests', function(){
   var today = new Date(2018, 08, 25);

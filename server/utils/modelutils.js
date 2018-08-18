@@ -1,10 +1,10 @@
-var Feeding = require('../models/feeding');
+var Feed = require('../models/feed');
 
-module.exports.getFeedingFromSchedule = function(date, schedule){
+module.exports.getFeedFromSchedule = function(date, schedule){
   date.setHours(schedule.hours);
   date.setMinutes(schedule.minutes);
   date.setSeconds(schedule.seconds);
-  return new Feeding({user:schedule.user,
+  return new Feed({user:schedule.user,
                       longitude:schedule.longitude,
                       latitude:schedule.latitude,
                       time: date,

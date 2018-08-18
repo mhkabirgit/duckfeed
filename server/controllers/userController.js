@@ -16,49 +16,49 @@ module.exports.create_user_post = [
   sanitizeBody('username').trim().escape(),
 
   (req, res, next) => {
-    var user = new User ({
-      username:req.body.username,
-      email: req.body.email,
-      password: req.body.password,
-    });
     const errors = validationResult(req);
     if(!errors.isEmpty()){
-      res.json({statusCode:400, message:'Bad Request'});
+      return res.status(400).json({error:'Bad Request'});
     }
     User.findOne({email:req.body.email})
-    .exec(function(err, found_user) {
+    .exec(function(err, found) {
       if(err) {
         return next(err);
       }
-      if(found_user) {
-        res.json({statusCode:400, message:'User exists with the same email'});
+      if(found) {
+        return res.status(400).json({error:'User exists with the same email'});
       }
     });
 
     User.findOne({username:req.body.username})
-    .exec(function(err, found_user) {
+    .exec(function(err, found) {
       if(err) {
         return next(err);
       }
-      if(found_user) {
+      if(found) {
         var error = new Error();
-        res.json({statusCode:400, message:'User exists with the same username'});
+        return res.status(400).json({error:'User exists with the same username'});
       }
     });
 
     if(req.body.password !== req.body.passwordcnf) {
-      res.json({statusCode: 400, message:'Password and Password Confirmation did not match.' });
+      return res.status(400).json({error:'Password and Password Confirmation did not match'});
     }
 
     bcrypt.hash(req.body.password, 10, function(err, hash) {
       if(err) {
         return next(err);
       }
-      User.create({username: req.body.username, email:req.body.email,  password: hash}, function (err) {
+      var user = new User ({
+        username:req.body.username,
+        email: req.body.email,
+        password: hash
+      });
+      user.save(function (err) {
         if(err) {
           return next(err);
         }
-        res.json({statusCode:200, message:'Signed Up Successful'});
+        return res.status(200).json({user:user});
       });
     });
   }
@@ -76,17 +76,17 @@ module.exports.signin_post = function(req, res, next) {
         return next(err);
       }
       if(!user) {
-        res.json({statusCode:401, email: req.body.email, error: 'User does not exists'});
+        return res.status(401).json({email: req.body.email, error: 'User does not exists'});
       }
       else {
         req.session.user=user;
         const isAdmin = user.username === 'admin' ? true : false;
-        res.json({statusCode:200, isAdmin: isAdmin});
+        return res.status(200).json({user:user, isAdmin: isAdmin});
       }
     });
   }
   else {
-    res.json({statusCode:401, email: req.body.email, error: 'Email and password are required.'});
+    return res.status(401).json({email: req.body.email, error: 'Email and password are required.'});
   }
 };
 
@@ -94,9 +94,9 @@ module.exports.signin_post = function(req, res, next) {
 module.exports.signout_post = function (req, res, next) {
   if(req.session.user && req.cookies.user_sid) {
     res.clearCookie('user_sid');
-    res.json({statusCode:200});
+    return res.status(200).json({status:'success'});
   }
   else {
-    res.json({statusCode:200});
+    return res.status(200).json({status:'success'});
   }
 };
