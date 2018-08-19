@@ -25,9 +25,14 @@ export const DELETE_FOOD_SUCCESS = 'DELETE_FOOD_SUCCESS';
 export const DELETE_FOOD_FAILURE = 'DELETE_FOOD_FAILURE';
 export const RESET_DELETED_FOOD = 'RESET_DELETED_FOOD';
 
+export const TOP_FOODTYPES = 'TOP_FOODTYPES';
+export const TOP_FOODTYPES_SUCCESS = 'TOP_FOODTYPES_SUCCESS';
+export const TOP_FOODTYPES_FAILURE = 'TOP_FOODTYPES_FAILURE';
+export const RESET_TOP_FOODTYPES = 'RESET_TOP_FOODTYPES';
+
 
 export function fetchFoodList(){
-  const request = axios.get(`${BASE_URL}/food/all`);
+  const request = axios.get(`${BASE_URL}/feeds/food/all`);
   return {
     type: FETCH_FOOD_LIST,
     payload: request
@@ -56,7 +61,7 @@ export function resetFoodList (){
 
 
 export function fetchFood(id){
-  const request = axios.get(`${BASE_URL}/food/detail/${id}`);
+  const request = axios.get(`${BASE_URL}/feeds/food/detail/${id}`);
   return {
     type: FETCH_FOOD,
     payload: request
@@ -86,7 +91,7 @@ export function resetActiveFood (){
 
 
 export function addFood(formValues){
-  const request = axios.post(`${BASE_URL}/food/add`, formValues);
+  const request = axios.post(`${BASE_URL}/feeds/food/add`, formValues);
   return {
     type: ADD_FOOD,
     payload: request
@@ -117,7 +122,7 @@ export function resetNewFood (){
 
 
 export function updateFood(id, formValues){
-  const request = axios.post(`${BASE_URL}/food/update/${id}`, formValues);
+  const request = axios.post(`${BASE_URL}/feeds/food/update/${id}`, formValues);
   return {
     type: UPDATE_FOOD,
     payload: request
@@ -142,7 +147,7 @@ export function updateFoodFailure(error){
 
 
 export function deleteFood(id){
-  const request = axios.post(`${BASE_URL}/food/delete/${id}`);
+  const request = axios.post(`${BASE_URL}/feeds/food/delete/${id}`);
   return {
     type: DELETE_FOOD,
     payload: request
@@ -168,5 +173,33 @@ export function deleteFoodFailure(error){
 export function resetDeletedFood (){
   return {
     type: RESET_DELETED_FOOD
+  }
+}
+
+export function topFoodtypes() {
+  const request = axios.get(`${BASE_URL}/feeds/topfoodtypes`);
+  return {
+    type: TOP_FOODTYPES,
+    payload: request
+  }
+}
+
+export function topFoodtypesSuccess(topFoodtypes) {
+  return {
+    type: TOP_FOODTYPES_SUCCESS,
+    payload: topFoodtypes
+  }
+}
+
+export function topFoodtypesFailure(error) {
+  return {
+    type: TOP_FOODTYPES_FAILURE,
+    payload: error
+  }
+}
+
+export function resetTopFoodtypes() {
+  return {
+    type: RESET_TOP_FOODTYPES
   }
 }

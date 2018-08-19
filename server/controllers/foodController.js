@@ -156,3 +156,14 @@ module.exports.delete = function (req, res, next) {
         }
     });
   };
+
+  module.exports.topfoodtypes = function(req, res, next){
+    Food.aggregate(
+      [{"$group": {_id: "$type", "count": {$sum:1}}},
+        {"$sort": {"count":-1}}])
+        .limit(20)
+        .excec(function(err, toptypes) {
+          if(err){ return next(err)}
+          return res.status(200).json(toptypes);
+        });
+  }

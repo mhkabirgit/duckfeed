@@ -34,7 +34,7 @@ function validate(values) {
   return hasErrors && errors;
 }
 
-const signUpUserDispatch = (values, dispatch) => {
+const dispatchSignUpUser = (values, dispatch) => {
   return dispatch(signUpUser(values))
     .then((result) => {
       //Error response is available in result.payload.response.data
@@ -68,7 +68,7 @@ class SignUpForm extends Component {
     const {handleSubmit, submitting} = this.props;
     return (
       <div className='container'>
-        <form onSubmit={ handleSubmit(signUpUserDispatch) }>
+        <form onSubmit={ handleSubmit(dispatchSignUpUser) }>
           <Field
                  name="username"
                  type="text"

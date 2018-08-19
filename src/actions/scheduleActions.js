@@ -35,7 +35,7 @@ export const CANCEL_SCHEDULE_FAILURE = 'CANCEL_SCHEDULE_FAILURE';
 
 
 export function fetchScheduleList(){
-  const request = axios.get(`${BASE_URL}/schedule/all`);
+  const request = axios.get(`${BASE_URL}/feeds/schedule/all`);
   return {
     type: FETCH_SCHEDULE_LIST,
     payload: request
@@ -64,7 +64,7 @@ export function resetScheduleList (){
 
 
 export function fetchSchedule(id){
-  const request = axios.get(`${BASE_URL}/schedule/detail/${id}`);
+  const request = axios.get(`${BASE_URL}/feeds/schedule/detail/${id}`);
   return {
     type: FETCH_SCHEDULE,
     payload: request
@@ -92,7 +92,7 @@ export function resetActiveSchedule (){
 }
 
 export function addSchedule(formValues){
-  const request = axios.post(`${BASE_URL}/schedule/add`, formValues);
+  const request = axios.post(`${BASE_URL}/feeds/schedule/add`, formValues);
   return {
     type: ADD_SCHEDULE,
     payload: request
@@ -123,7 +123,7 @@ export function resetNewSchedule (){
 
 
 export function updateSchedule(id, formValues){
-  const request = axios.post(`${BASE_URL}/schedule/update/${id}`, formValues);
+  const request = axios.post(`${BASE_URL}/feeds/schedule/update/${id}`, formValues);
   return {
     type: UPDATE_SCHEDULE,
     payload: request
@@ -148,7 +148,7 @@ export function updateScheduleFailure(error){
 
 
 export function deleteSchedule(id){
-  const request = axios.post(`${BASE_URL}/schedule/delete/${id}`);
+  const request = axios.post(`${BASE_URL}/feeds/schedule/delete/${id}`);
   return {
     type: DELETE_SCHEDULE,
     payload: request
@@ -180,7 +180,7 @@ export function resetDeletedSchedule (){
 
 
 export function confirmSchedule(id){
-  const request = axios.post(`${BASE_URL}/schedule/confirm/${id}`);
+  const request = axios.post(`${BASE_URL}/feeds/schedule/confirm/${id}`);
   return {
     type: CONFIRM_SCHEDULE,
     payload: request
@@ -205,7 +205,7 @@ export function confirmScheduleFailure(error){
 
 
 export function cancelSchedule(id){
-  const request = axios.post(`${BASE_URL}/schedule/cancel/${id}`);
+  const request = axios.post(`${BASE_URL}/feeds/schedule/cancel/${id}`);
   return {
     type: CANCEL_SCHEDULE,
     payload: request

@@ -5,6 +5,8 @@ import axios from 'axios';
 import HomeComponent from './components/HomeComponent';
 import HeaderComponent from './components/HeaderComponent';
 
+import AddFoodtypeFormContainer from './containers/AddFoodtypeFormContainer';
+
 import SignupFormContainer from './containers/SignupFormContainer';
 import SigninFormContainer from './containers/SigninFormContainer';
 import SignoutContainer from './containers/SignoutContainer';
@@ -29,7 +31,7 @@ class App extends Component {
               <Route exact path='/feed/add' component={HomeComponent}/>
               <Route exact path='/schedule/add' component={HomeComponent}/>
               <Route exact path='/food/add' component={HomeComponent}/>
-              <Route exact path='/foodtype/add' component={HomeComponent}/>
+              <Route exact path='/foodtype/add' component={AddFoodtypeFormContainer}/>
 
               <Route exact path='/feed/detail/:id' component={HomeComponent}/>
               <Route exact path='/schedule/detail/:id' component={HomeComponent}/>

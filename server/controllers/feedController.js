@@ -126,3 +126,13 @@ module.exports.delete = function (req, res, next) {
     return res.status(200).json({status: 'success'});
   });
 };
+
+module.exports.topfoods = function(req, res, next){
+  Food.aggregate(
+    [{"$group": {_id: "$food", "count": {$sum:1}}},
+      {"$sort": {"count":-1}}])
+      .limit(20)
+      .excec(function(err, topfoods) {
+        if(err){ return next(err)}
+        return res.status(200).json(topfoods);
+      });

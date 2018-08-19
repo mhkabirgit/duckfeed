@@ -3,11 +3,13 @@ import {
   FETCH_FOOD, FETCH_FOOD_SUCCESS, FETCH_FOOD_FAILURE, RESET_ACTIVE_FOOD,
   ADD_FOOD, ADD_FOOD_SUCCESS, ADD_FOOD_FAILURE, RESET_NEW_FOOD,
   UPDATE_FOOD, UPDATE_FOOD_SUCCESS, UPDATE_FOOD_FAILURE,
-  DELETE_FOOD, DELETE_FOOD_SUCCESS, DELETE_FOOD_FAILURE, RESET_DELETED_FOOD
+  DELETE_FOOD, DELETE_FOOD_SUCCESS, DELETE_FOOD_FAILURE, RESET_DELETED_FOOD,
+  TOP_FOODTYPES, TOP_FOODTYPES_SUCCESS, TOP_FOODTYPES_FAILURE, RESET_TOP_FOODTYPES
 } from '../actions/foodActions';
 
 const INITIAL_STATE = {
   foodList: {foods: [], error: null, loading: false},
+  topTypes: {types: [], error: null, loading: false},
   activeFood: {food: null, error: null, loading: false},
   newFood: {food: null, error: null, loading: false},
   deletedFood: {food: null, error: null, loading: false}
@@ -59,6 +61,17 @@ export default function(state=INITIAL_STATE, action){
         return {...state, deletedFood: {food: null, error: error, loading: false} };
     case RESET_DELETED_FOOD:
         return {...state, deletedFood: {food: null, error: null, loading: false} };
+
+    case TOP_FOODTYPES:
+        return {...state, topTypes: {types: [], error: null, loading: true} };
+    case TOP_FOODTYPES_SUCCESS:
+        return {...state, toptypes: {types: action.payload, error: null, loading: false} };
+    case TOP_FOODTYPES_FAILURE:
+        error=action.payload || {message: action.payload.message};
+        return {...state, topTypes: {types: [], error: error, loading: false} };
+    case RESET_TOP_FOODTYPES:
+        return {...state, topTypes: {types: [], error: null, loading: false} };
+
     default:
         return state;
   }

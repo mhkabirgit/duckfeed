@@ -27,7 +27,7 @@ export const RESET_DELETED_FOODTYPE = 'RESET_DELETED_FOODTYPE';
 
 
 export function fetchFoodtypeList(){
-  const request = axios.get(`${BASE_URL}/foodtype/all`);
+  const request = axios.get(`${BASE_URL}/feeds/foodtype/all`);
   return {
     type: FETCH_FOODTYPE_LIST,
     payload: request
@@ -56,7 +56,7 @@ export function resetFoodtypeList (){
 
 
 export function fetchFoodtype(id){
-  const request = axios.get(`${BASE_URL}/foodtype/detail/${id}`);
+  const request = axios.get(`${BASE_URL}/feeds/foodtype/detail/${id}`);
   return {
     type: FETCH_FOODTYPE,
     payload: request
@@ -86,7 +86,7 @@ export function resetActiveFoodtype (){
 
 
 export function addFoodtype(formValues){
-  const request = axios.post(`${BASE_URL}/foodtype/add`, formValues);
+  const request = axios.post(`${BASE_URL}/feeds/foodtype/add`, formValues);
   return {
     type: ADD_FOODTYPE,
     payload: request
@@ -117,7 +117,7 @@ export function resetNewFoodtype (){
 
 
 export function updateFoodtype(id, formValues){
-  const request = axios.post(`${BASE_URL}/foodtype/update/${id}`, formValues);
+  const request = axios.post(`${BASE_URL}/feeds/foodtype/update/${id}`, formValues);
   return {
     type: UPDATE_FOODTYPE,
     payload: request
@@ -142,7 +142,7 @@ export function updateFoodtypeFailure(error){
 
 
 export function deleteFoodtype(id){
-  const request = axios.post(`${BASE_URL}/foodtype/delete/${id}`);
+  const request = axios.post(`${BASE_URL}/feeds/foodtype/delete/${id}`);
   return {
     type: DELETE_FOODTYPE,
     payload: request

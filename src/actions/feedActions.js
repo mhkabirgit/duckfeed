@@ -26,9 +26,14 @@ export const DELETE_FEED_SUCCESS = 'DELETE_FEED_SUCCESS';
 export const DELETE_FEED_FAILURE = 'DELETE_FEED_FAILURE';
 export const RESET_DELETED_FEED = 'RESET_DELETED_FEED';
 
+export const TOP_FOODS = 'TOP_FOODS';
+export const TOP_FOODS_SUCCESS = 'TOP_FOODS_SUCCESS';
+export const TOP_FOODS_FAILURE = 'TOP_FOODS_FAILURE';
+export const RESET_TOP_FOODS = 'RESET_TOP_FOODS';
+
 
 export function fetchFeedList(){
-  const request = axios.get(`${BASE_URL}/feed/all`);
+  const request = axios.get(`${BASE_URL}/feeds/feed/all`);
   return {
     type: FETCH_FEED_LIST,
     payload: request
@@ -57,7 +62,7 @@ export function resetFeedList (){
 
 
 export function fetchFeed(id){
-  const request = axios.get(`${BASE_URL}/feed/detail/${id}`);
+  const request = axios.get(`${BASE_URL}/feeds/feed/detail/${id}`);
   return {
     type: FETCH_FEED,
     payload: request
@@ -87,7 +92,7 @@ export function resetActiveFeed (){
 
 
 export function addFeed(formValues){
-  const request = axios.post(`${BASE_URL}/feed/add`, formValues);
+  const request = axios.post(`${BASE_URL}/feeds/feed/add`, formValues);
   return {
     type: ADD_FEED,
     payload: request
@@ -117,7 +122,7 @@ export function resetNewFeed (){
 
 
 export function updateFeed(id, formValues){
-  const request = axios.post(`${BASE_URL}/feed/update/${id}`, formValues);
+  const request = axios.post(`${BASE_URL}/feeds/feed/update/${id}`, formValues);
   return {
     type: UPDATE_FEED,
     payload: request
@@ -142,7 +147,7 @@ export function updateFeedFailure(error){
 
 
 export function deleteFeed(id){
-  const request = axios.post(`${BASE_URL}/feed/delete/${id}`);
+  const request = axios.post(`${BASE_URL}/feeds/feed/delete/${id}`);
   return {
     type: DELETE_FEED,
     payload: request
@@ -168,5 +173,33 @@ export function deleteFeedFailure(error){
 export function resetDeletedFeed (){
   return {
     type: RESET_DELETED_FEED
+  }
+}
+
+export function topFoods() {
+  const request = axios.get(`${BASE_URL}/feeds/topfoods`);
+  return {
+    type: TOP_FOODS,
+    payload: request
+  }
+}
+
+export function topFoodsSuccess(topFoods) {
+  return {
+    type: TOP_FOODS_SUCCESS,
+    payload: topFoods
+  }
+}
+
+export function topFoodsFailure(error) {
+  return {
+    type: TOP_FOODS_FAILURE,
+    payload: error
+  }
+}
+
+export function resetTopFoods() {
+  return {
+    type: RESET_TOP_FOODS
   }
 }
