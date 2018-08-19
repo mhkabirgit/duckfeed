@@ -51,7 +51,7 @@ export function fetchFeedListFailure(error){
 
 export function resetFeedList (){
   return {
-    type: RESET_FEED_LIST;
+    type: RESET_FEED_LIST
   }
 }
 
@@ -128,7 +128,7 @@ export function updateFeed(id, formValues){
 export function updateFeedSuccess(updatedFeed){
   return {
     type: UPDATE_FEED_SUCCESS,
-    payload: updatedFEED
+    payload: updatedFeed
   }
 }
 

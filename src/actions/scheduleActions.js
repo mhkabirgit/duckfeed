@@ -100,7 +100,7 @@ export function addSchedule(formValues){
 }
 
 
-export function addScheduleSuccess(newFeed){
+export function addScheduleSuccess(newSchedule){
   return {
     type: ADD_SCHEDULE_SUCCESS,
     payload: newSchedule

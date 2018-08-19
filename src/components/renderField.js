@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 
 const renderField = ({ input, label, type, meta: { touched, error, invalid, warning } }) => (
   <div className={`form-group ${touched && invalid ? 'has-error' : ''}`}>

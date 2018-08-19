@@ -50,7 +50,7 @@ export function fetchFoodtypeListFailure(error){
 
 export function resetFoodtypeList (){
   return {
-    type: RESET_FOODTYPE_LIST;
+    type: RESET_FOODTYPE_LIST
   }
 }
 

@@ -11,22 +11,22 @@ export default class HomeComponent extends Component {
                 <tbody>
                   <tr>
                     <td>
-                        <Link to={'/feed/all'} className='nav-link'> All Feeds</Link>
+                        <Link to={'/feed/all'} className='nav-link'> Show All Feeds</Link>
                     </td>
                   </tr>
                   <tr>
                     <td>
-                        <Link to={'/schedule/all'} className='nav-link'> All Schedules</Link>
+                        <Link to={'/schedule/all'} className='nav-link'> Show All Schedules</Link>
                     </td>
                   </tr>
                   <tr>
                     <td>
-                        <Link to={'/food/all'} className='nav-link'> All Foods</Link>
+                        <Link to={'/food/all'} className='nav-link'> Show All Foods</Link>
                     </td>
                   </tr>
                   <tr>
                     <td>
-                        <Link to={'/foodtype/all'} className='nav-link'> All Food Types</Link>
+                        <Link to={'/foodtype/all'} className='nav-link'> Show All Food Types</Link>
                     </td>
                   </tr>
                 </tbody>
