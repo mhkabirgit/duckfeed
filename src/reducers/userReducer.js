@@ -12,7 +12,7 @@ import {
 // 3. 'authenticated'(after signin)
 // 4. 'logout' (after logout)
 
-const INITIAL_STATE = {user: null, status:null, error:null, loading: false};
+const INITIAL_STATE = {user: {_id:1, username:'testuser', password:''}, status:null, error:null, loading: false};
 
 export default function(state = INITIAL_STATE, action) {
   let error;

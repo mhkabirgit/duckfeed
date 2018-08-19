@@ -17,7 +17,7 @@ describe('Model Utilities Tests', function(){
   const grain = new FoodType({name:'grain'});
   const rice =new Food({name:'rice',type:grain, description:'cracked rice'});
 
-  const schedule = new Schedule({user: user, longitude:40.39, latitude:30.23, hours:10, minutes:30, seconds:0, food:rice, duckCount:10, feedAmount:5, startDate:today});
+  const schedule = new Schedule({user: user, longitude:40.39, latitude:30.23, hours:10, minutes:30, food:rice, duckCount:10, feedAmount:5, startDate:today});
 
   const feeding = getFeeding(today, schedule);
   it('Created User has username testuser', function(){

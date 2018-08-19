@@ -6,6 +6,9 @@ import HomeComponent from './components/HomeComponent';
 import HeaderComponent from './components/HeaderComponent';
 
 import AddFoodtypeFormContainer from './containers/AddFoodtypeFormContainer';
+import AddFoodFormContainer from './containers/AddFoodFormContainer';
+import AddFeedFormContainer from './containers/AddFeedFormContainer';
+import AddScheduleFormContainer from './containers/AddScheduleFormContainer';
 
 import SignupFormContainer from './containers/SignupFormContainer';
 import SigninFormContainer from './containers/SigninFormContainer';
@@ -28,9 +31,9 @@ class App extends Component {
           <Switch>
               <Route exact path='/' component={HomeComponent}/>
 
-              <Route exact path='/feed/add' component={HomeComponent}/>
-              <Route exact path='/schedule/add' component={HomeComponent}/>
-              <Route exact path='/food/add' component={HomeComponent}/>
+              <Route exact path='/feed/add' component={AddFeedFormContainer}/>
+              <Route exact path='/schedule/add' component={AddScheduleFormContainer}/>
+              <Route exact path='/food/add' component={AddFoodFormContainer}/>
               <Route exact path='/foodtype/add' component={AddFoodtypeFormContainer}/>
 
               <Route exact path='/feed/detail/:id' component={HomeComponent}/>

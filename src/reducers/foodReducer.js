@@ -9,7 +9,7 @@ import {
 
 const INITIAL_STATE = {
   foodList: {foods: [], error: null, loading: false},
-  topTypes: {types: [], error: null, loading: false},
+  topTypes: {types: [{_id:1, name:'Grain'}, {_id:2, name:'Peck'}], error: null, loading: false},
   activeFood: {food: null, error: null, loading: false},
   newFood: {food: null, error: null, loading: false},
   deletedFood: {food: null, error: null, loading: false}

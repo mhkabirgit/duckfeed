@@ -6,7 +6,7 @@ var Feed = require('../models/feed');
 var getFeedingFromSchedule = require('../utils/modelutils').getFeedingFromSchedule;
 
 module.exports.all = function(req, res, next) {
-  Schedule.find({}, 'user longitude latitude hours minutes seconds food duckCount feedAmount startDate endDate')
+  Schedule.find({}, 'user longitude latitude hours minutes food duckCount feedAmount startDate endDate')
     .populate('user')
     .populate('food')
     .exec(function (err, schedules) {
@@ -59,23 +59,22 @@ module.exports.add = [
             return res.status(400).json({errors: errors.array()});
         }
         else {
-                let time = new Date(req.body.time);
-                let hours = time.getHours();
-                let minutes = time.getMinutes();
-                let seconds = time.getSeconds();
-                let startDate = new Date();
+                let times = req.body.time.split(":");
+                let hours = parseInt(times[0].trim());
+                let minutes = parseInt(times[1].split(" ")[0].trim());
+                let startDate = req.body.startDate? new Date(req.body.startDate): new Date();
+                let endDate = req.body.endDate? new Date(req.body.endDate): null;
                 var schedule = new Schedule(
                   { user: req.body.user,
                     longitude: req.body.longitude,
                     latitude: req.body.latitude,
                     hours: hours,
                     minutes: minutes,
-                    seconds: seconds,
                     food: req.body.food,
                     duckCount: req.body.duckCount,
                     feedAmount: req.body.feedAmount,
                     startDate: startDate,
-                    endDate:''
+                    endDate:endDate
                    });
                 schedule.save(function (err) {
                     if (err) { return next(err); }
@@ -119,11 +118,11 @@ module.exports.update = [
                   return next(err);
               }
               else {
-                  let startDate = found.startDate;
-                  let time = new Date(req.body.time);
-                  let hours = time.getHours();
-                  let minutes = time.getMinutes();
-                  let seconds = time.getSeconds();
+                let times = req.body.time.split(":");
+                let hours = parseInt(times[0].trim());
+                let minutes = parseInt(times[1].split(" ")[0].trim());
+                  let startDate = req.body.startDate? new Date(req.body.startDate): found.startDate;
+                  let endDate = req.body.endDate? new Date(req.body.endDate): null;
                   var schedule = new Schedule(
                     { user: req.body.user,
                       longitude: req.body.longitude,
@@ -135,7 +134,7 @@ module.exports.update = [
                       duckCount: req.body.duckCount,
                       feedAmount: req.body.feedAmount,
                       startDate: startDate,
-                      endDate:''
+                      endDate:endDate
                      });
                   Schedule.findByIdAndUpdate(req.params.id, schedule, {}, function (err,schedule) {
                                if (err) { return next(err); }
@@ -170,12 +169,13 @@ module.exports.confirm = function(req, res,next) {
             return next(err);
         }
         else {
-          let date = new Date(req.body.date);
-          let feed = getFeedFromSchedule(date, schedule);
-          feed.save(function (err) {
-              if (err) { return next(err); }
-                 return res.status(200).json({feed:feed});
-              });
+          schedule.confirmed = true;
+          schedule.lastConfirmed = new Date(req.body.date);
+          lSchedule.findByIdAndUpdate(req.params.id, schedule, {}, function (err,schedule) {
+                       if (err) { return next(err); }
+                          // Successful - redirect to book detail page.
+                          return res.status(200).json({schedule:schedule});
+                        });
           }
         });
   };
@@ -193,7 +193,7 @@ module.exports.confirm = function(req, res,next) {
           }
           else {
             let date = new Date();
-            let endSchedule = {...schedule, endDate: date};
+            schedule.endDate = date;
             Schedule.findByIdAndUpdate(req.params.id, endSchedule, {}, function (err,schedule) {
                          if (err) { return next(err); }
                             // Successful - redirect to book detail page.

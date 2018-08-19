@@ -9,7 +9,7 @@ import {
 
 const INITIAL_STATE = {
   feedList: {feeds: [], error: null, loading: false},
-  topFoods: {foods: [], error: null, loading: false},
+  topFoods: {foods: [{_id:1, name:"Rice", type: "Grain", description:"cracked rice" }, {_id:2, name:"Wheat", type: "Grain", description:"cracked wheat" }], error: null, loading: false},
   activeFeed: {feed: null, error: null, loading: false},
   newFeed: {feed: null, error: null, loading: false},
   deletedFeed: {feed: null, error: null, loading: false}
@@ -60,7 +60,7 @@ export default function(state=INITIAL_STATE, action){
         error=action.payload || {message: action.payload.message};
         return {...state, deletedFeed: {feed: null, error: error, loading: false} };
     case RESET_DELETED_FEED:
-        return {...state, deletedFeed: {feed: null, error: null, loading: false} };    
+        return {...state, deletedFeed: {feed: null, error: null, loading: false} };
     case TOP_FOODS:
         return {...state, topFoods: {foods: [], error: null, loading: true} };
     case TOP_FOODS_SUCCESS:

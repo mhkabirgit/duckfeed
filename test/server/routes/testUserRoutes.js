@@ -25,7 +25,7 @@ describe('User routes tests', () => {
   //       .end((err, res) => {
   //           res.should.have.status(200);
   //           res.body.should.be.a('object');
-  //           res.body.should.have.property('message');
+  //           res.body.should.have.property('user');
   //         done();
   //       });
   // });
@@ -41,7 +41,7 @@ describe('User routes tests', () => {
   //       .end((err, res) => {
   //           res.should.have.status(200);
   //           res.body.should.be.a('object');
-  //           res.body.should.have.property('message');
+  //           res.body.should.have.property('error');
   //         done();
   //       });
   // });
@@ -53,7 +53,7 @@ describe('User routes tests', () => {
         .end((err, res) => {
             res.should.have.status(200);
             res.body.should.be.a('object');
-            res.body.should.have.property('statusCode');
+            res.body.should.have.property('status');
           done();
         });
   });

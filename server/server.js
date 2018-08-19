@@ -8,6 +8,7 @@ var app = require('./app');
 var config = require('config');
 var debug = require('debug')('duckfeed:server');
 var http = require('http');
+var scheduleThread = require('./service/scheduleThread');
 
 const serverPort = config.ServerPort;
 
@@ -29,7 +30,7 @@ var server = http.createServer(app);
  */
 
 server.listen(port, function(){
-  console.log('Server listening on port: '+ port);
+  console.log('Server started to listen on port: '+ port);
 });
 server.on('error', onError);
 server.on('listening', onListening);
@@ -91,7 +92,8 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  console.log('Listening on ' + bind);
+  //scheduleThread();
 }
 
 module.exports= server;

@@ -114,7 +114,6 @@ module.exports.update = [
                      });
            }
     }
-
 ];
 
 module.exports.delete = function (req, res, next) {
@@ -136,3 +135,4 @@ module.exports.topfoods = function(req, res, next){
         if(err){ return next(err)}
         return res.status(200).json(topfoods);
       });
+};
