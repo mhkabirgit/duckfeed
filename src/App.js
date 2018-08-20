@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Switch, Route} from 'react-router-dom';
+import { BrowserRouter, Router, Switch, Route} from 'react-router-dom';
+// import { Router, browserHistory, Switch, Route} from 'react-router';
 import axios from 'axios';
 
 import HomeComponent from './components/HomeComponent';
@@ -55,6 +56,9 @@ class App extends Component {
               <Route exact path='/schedule/all' component={HomeComponent}/>
               <Route exact path='/food/all' component={HomeComponent}/>
               <Route exact path='/foodtype/all' component={HomeComponent}/>
+
+              <Route exact path='/schedule/confirm' component={HomeComponent}/>
+              <Route exact path='/schedule/cancel' component={HomeComponent}/>
 
               <Route exact path='/user/signin' component={SigninFormContainer}/>
               <Route exact path='/user/signout' component={SignoutContainer}/>

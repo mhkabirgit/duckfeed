@@ -19,11 +19,11 @@ var feedsRouter = require('./routes/feeds');
 
 var app = express();
 
-mongoose.createConnection(serverDb, { useNewUrlParser: true });
+mongoose.connect(serverDb, { useNewUrlParser: true });
 mongoose.Promise=global.Promise;
 var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection Error'));
-db.once("open", function(){console.log('MongoDB Connection succeded')});
+db.on('error', console.error.bind(console, 'DB connection Error'));
+db.once("open", function(){console.log('DB Connected')});
 
 app.use(cors({origin:[corsOrigin],
         methods:['GET','POST'],

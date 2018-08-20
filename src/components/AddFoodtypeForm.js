@@ -1,6 +1,6 @@
 import React, { Component} from 'react';
 import {PropTypes} from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { reduxForm, Field, SubmissionError } from 'redux-form';
 import renderField from './renderField';
 import { addFoodtype, addFoodtypeSuccess, addFoodtypeFailure} from '../actions/foodtypeActions';
@@ -39,7 +39,7 @@ class AddFoodtypeForm extends Component {
 
   componentWillReceiveProps(nextProps){
     if(nextProps.newFoodtype.foodtype && ! nextProps.newFoodtype.error){
-      this.context.router.push('/');
+      this.context.router.history.push('/');
     }
   }
 

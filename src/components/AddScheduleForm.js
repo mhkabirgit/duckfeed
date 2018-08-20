@@ -65,7 +65,7 @@ class AddScheduleForm extends Component {
 
   componentWillReceiveProps(nextProps){
     if(nextProps.newSchedule.schedule && !nextProps.newSchedule.error ){
-      this.context.router.push('/');
+      this.context.router.history.push('/');
     }
   }
 

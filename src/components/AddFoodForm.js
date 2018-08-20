@@ -44,7 +44,7 @@ class AddFoodForm extends Component {
 
   componentWillReceiveProps(nextProps){
     if(nextProps.newFood.food && !nextProps.newFood.error ){
-      this.context.router.push('/');
+      this.context.router.history.push('/');
     }
   }
 

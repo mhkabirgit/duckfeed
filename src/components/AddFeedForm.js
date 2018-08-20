@@ -64,7 +64,7 @@ class AddFeedForm extends Component {
 
   componentWillReceiveProps(nextProps){
     if(nextProps.newFeed.feed && !nextProps.newFeed.error ){
-      this.context.router.push('/');
+      this.context.router.history.push('/');
     }
   }
 

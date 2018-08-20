@@ -11,7 +11,8 @@ const serverDB = config.DBHost;
 describe('Database Test', function(){
 
   before(function(){
-    var db = mongoose.createConnection(serverDB, { useNewUrlParser: true });
+    mongoose.connect(serverDB, { useNewUrlParser: true });
+    var db = mongoose.connection;
     db.on("error", console.error.bind(console, "connection error"));
     db.once("open", function(){
       console.log('DB connection opened');
@@ -39,6 +40,8 @@ describe('Database Test', function(){
   });
 
   after(function(){
+      //var db = mongoose.connection;
+      //db.dropDatabase();
       mongoose.disconnect();
   });
 
