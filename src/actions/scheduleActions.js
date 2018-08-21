@@ -42,10 +42,10 @@ export function fetchScheduleList(){
   }
 }
 
-export function fetchScheduleListSuccess(scheduleList){
+export function fetchScheduleListSuccess(schedules){
   return {
     type: FETCH_SCHEDULE_LIST_SUCCESS,
-    payload: scheduleList
+    payload: schedules
   }
 }
 

@@ -11,6 +11,9 @@ import AddFoodFormContainer from './containers/AddFoodFormContainer';
 import AddFeedFormContainer from './containers/AddFeedFormContainer';
 import AddScheduleFormContainer from './containers/AddScheduleFormContainer';
 
+import AllFeedsContainer from './containers/AllFeedsContainer';
+import AllFoodtypesContainer from './containers/AllFoodtypesContainer';
+
 import SignupFormContainer from './containers/SignupFormContainer';
 import SigninFormContainer from './containers/SigninFormContainer';
 import SignoutContainer from './containers/SignoutContainer';
@@ -52,10 +55,10 @@ class App extends Component {
               <Route exact path='/food/delete/:id' component={HomeComponent}/>
               <Route exact path='/foodtype/delete/:id' component={HomeComponent}/>
 
-              <Route exact path='/feed/all' component={HomeComponent}/>
+              <Route exact path='/feed/all' component={AllFeedsContainer}/>
               <Route exact path='/schedule/all' component={HomeComponent}/>
               <Route exact path='/food/all' component={HomeComponent}/>
-              <Route exact path='/foodtype/all' component={HomeComponent}/>
+              <Route exact path='/foodtype/all' component={AllFoodtypesContainer}/>
 
               <Route exact path='/schedule/confirm' component={HomeComponent}/>
               <Route exact path='/schedule/cancel' component={HomeComponent}/>

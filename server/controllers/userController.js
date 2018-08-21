@@ -6,6 +6,10 @@ const {sanitizeBody} = require('express-validator/filter');
 
 var User = require('../models/user');
 
+const getClearUser = (user) => {
+  return {_id: user._id, username: user.username, email: user.email};
+}
+
 module.exports.create_user_post = [
 
   body('username', 'Username must not be empty').isLength({min:1}).trim(),
@@ -18,7 +22,7 @@ module.exports.create_user_post = [
   (req, res, next) => {
     const errors = validationResult(req);
     if(!errors.isEmpty()){
-      return res.status(400).json({error:'Bad Request'});
+      res.status(400).json({error:'Bad Request'});
     }
     User.findOne({email:req.body.email})
     .exec(function(err, found) {
@@ -26,7 +30,7 @@ module.exports.create_user_post = [
         return next(err);
       }
       if(found) {
-        return res.status(400).json({error:'User exists with the same email'});
+        res.status(400).json({error:'User exists with the same email'});
       }
     });
 
@@ -37,12 +41,12 @@ module.exports.create_user_post = [
       }
       if(found) {
         var error = new Error();
-        return res.status(400).json({error:'User exists with the same username'});
+        res.status(400).json({error:'User exists with the same username'});
       }
     });
 
     if(req.body.password !== req.body.passwordcnf) {
-      return res.status(400).json({error:'Password and Password Confirmation did not match'});
+      res.status(400).json({error:'Password and Password Confirmation did not match'});
     }
 
     bcrypt.hash(req.body.password, 10, function(err, hash) {
@@ -58,7 +62,7 @@ module.exports.create_user_post = [
         if(err) {
           return next(err);
         }
-        return res.status(200).json({user:user});
+        res.status(200).json(getClearUser(user));
       });
     });
   }
@@ -76,27 +80,28 @@ module.exports.signin_post = function(req, res, next) {
         return next(err);
       }
       if(!user) {
-        return res.status(401).json({email: req.body.email, error: 'User does not exists'});
+        res.status(401).json({error: 'User does not exists'});
       }
       else {
         req.session.user=user;
-        return res.status(200).json({user:user});
+        res.status(200).json(getClearUser(user));
       }
     });
   }
   else {
-    return res.status(401).json({email: req.body.email, error: 'Email and password are required.'});
+    res.status(401).json({error: 'Email and password are required.'});
   }
 };
 
 
 module.exports.signout_post = function (req, res, next) {
-  console.log('signout received');
+
   if(req.session.user && req.cookies.user_sid) {
+    const user = req.session.user;
     res.clearCookie('user_sid');
-    return res.status(200).json({status:'success'});
+    res.status(200).json(getClearUser(user));
   }
   else {
-    return res.status(200).json({status:'success'});
+    res.status(400).json({error:'You are not signed in'});
   }
 };

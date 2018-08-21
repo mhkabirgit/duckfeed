@@ -12,7 +12,7 @@ module.exports.all = function(req, res, next) {
       return next(err);
     }
     else {
-      return res.status(200).json({foodtypes: foodtypes});
+      res.status(200).json(foodtypes);
     }
   });
 };
@@ -29,7 +29,7 @@ module.exports.detail = function(req, res,next) {
                    return next(err);
                  }
                  else {
-                   return res.status(200).json({foodtype:foodtype});
+                   res.status(200).json(foodtype);
                  }
         });
   };
@@ -62,7 +62,7 @@ module.exports.add = [
                 return next(err);
               }
               else{
-                return res.status(200).json({foodtype:foodtype});
+                res.status(200).json(foodtype);
               }
             });
           }
@@ -89,7 +89,7 @@ module.exports.update = [
         if(err){
           return next(err);
         }
-        return res.status(200).json({foodtype: foodtype});
+        res.status(200).json(foodtype);
       });
       }
     }
@@ -121,12 +121,12 @@ module.exports.delete = function (req, res, next) {
         }
         else{
           FoodType.findByIdAndRemove(results.foodtype.id)
-          .exec(function(err){
+          .exec(function(err, foodtype){
             if(err) {
               return next(err);
             }
             else {
-              return res.status(200).json({status:'success'});
+              rres.status(200).json(foodtype);
             }
           });
         }

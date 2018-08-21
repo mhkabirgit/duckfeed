@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import SignoutComponent from '../components/SignoutComponent';
-import {logoutUser, logoutUserSuccess, logoutUserFailure} from '../actions/userActions';
+import {logoutUser, logoutUserSuccess, logoutUserFailure, resetUser} from '../actions/userActions';
 
 function mapStateToProps(state){
   return {
@@ -10,6 +10,11 @@ function mapStateToProps(state){
 
 const mapDispatchToProps = (dispatch) => {
   return {
+
+    resetMe: () =>{
+      dispatch(resetUser());
+    },
+
     logout: () => {
       dispatch(logoutUser())
       .then( (result) =>{
@@ -17,7 +22,7 @@ const mapDispatchToProps = (dispatch) => {
           dispatch(logoutUserFailure(result.payload.response.data));
         }
         else {
-          dispatch(logoutUserSuccess());
+          dispatch(logoutUserSuccess(result.payload.data));
         }
       });
     }

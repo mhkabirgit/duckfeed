@@ -34,10 +34,10 @@ export function fetchFoodtypeList(){
   }
 }
 
-export function fetchFoodtypeListSuccess(foodtypeList){
+export function fetchFoodtypeListSuccess(foodtypes){
   return {
     type: FETCH_FOODTYPE_LIST_SUCCESS,
-    payload: foodtypeList
+    payload: foodtypes
   }
 }
 

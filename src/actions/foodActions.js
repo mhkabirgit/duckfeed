@@ -39,10 +39,10 @@ export function fetchFoodList(){
   }
 }
 
-export function fetchFoodListSuccess(foodList){
+export function fetchFoodListSuccess(foods){
   return {
     type: FETCH_FOOD_LIST_SUCCESS,
-    payload: foodList
+    payload: foods
   }
 }
 

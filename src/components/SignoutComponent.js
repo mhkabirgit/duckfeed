@@ -7,8 +7,15 @@ export default class SignoutComponent extends Component {
   }
 
   render(){
-    return(
-      <div> You have signed out </div>
-    );
+    if(this.props.user.user && this.props.user.status === 'loggedout'){
+      return(
+        <div> {this.props.user.user.username}, you  have signed out successfully! </div>
+      );
+    }
+    else {
+      return (
+        <div> You were not signed in </div>
+      );
+    }
   }
 }

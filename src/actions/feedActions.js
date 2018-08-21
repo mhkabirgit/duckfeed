@@ -40,10 +40,10 @@ export function fetchFeedList(){
   }
 }
 
-export function fetchFeedListSuccess(feedList){
+export function fetchFeedListSuccess(feeds){
   return {
     type: FETCH_FEED_LIST_SUCCESS,
-    payload: feedList
+    payload: feeds
   }
 }
 

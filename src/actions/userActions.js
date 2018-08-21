@@ -77,9 +77,10 @@ export function logoutUser() {
   }
 }
 
-export function logoutUserSuccess() {
+export function logoutUserSuccess(user) {
   return {
-    type: LOGOUT_USER_SUCCESS
+    type: LOGOUT_USER_SUCCESS,
+    payload: user
   };
 }
 
