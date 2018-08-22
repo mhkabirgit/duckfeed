@@ -10,25 +10,25 @@ const serverDB = config.DBHost;
 
 describe('Database Test', function(){
 
-  before(function(){
-    mongoose.connect(serverDB, { useNewUrlParser: true });
-    var db = mongoose.connection;
-    db.on("error", console.error.bind(console, "connection error"));
-    db.once("open", function(){
-      console.log('DB connection opened');
-    });
-  });
-
   var user =new User({"username":"testuser1", "email":"email@test.com", "password":"password"});
 
   describe('User Model Tests', function(){
+
+    it('Will delete a User', function(){
+      User.deleteOne({'username':'testuser1'})
+      .exec(function(err) {
+        if(err){
+          console.log('Error: '+ err);
+        }
+      });
+    });
 
     it('Will save a new User', function(){
       user.save();
     });
 
     it('Will find a User', function(){
-      User.findOne({'username':user.username})
+      User.findOne({'username':'testuser1'})
       .exec(function(err, found) {
         if(err){
           console.log(err);
@@ -37,12 +37,15 @@ describe('Database Test', function(){
       });
 
     });
-  });
 
-  after(function(){
-      //var db = mongoose.connection;
-      //db.dropDatabase();
-      mongoose.disconnect();
+    it('Will delete a User', function(){
+      User.deleteOne({'username':'testuser1'})
+      .exec(function(err) {
+        if(err){
+          console.log('Error: '+ err);
+        }
+      });
+    });
   });
 
 });

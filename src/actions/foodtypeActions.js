@@ -55,8 +55,8 @@ export function resetFoodtypeList (){
 }
 
 
-export function fetchFoodtype(id){
-  const request = axios.get(`${BASE_URL}/feeds/foodtype/detail/${id}`);
+export function fetchFoodtype(foodtypeid){
+  const request = axios.get(`${BASE_URL}/feeds/foodtype/detail/${foodtypeid}`);
   return {
     type: FETCH_FOODTYPE,
     payload: request

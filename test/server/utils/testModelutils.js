@@ -15,7 +15,7 @@ describe('Model Utilities Tests', function(){
   var today = new Date(2018, 08, 25);
   const user = new User({username:'testuser', email:'email@test.com', password:'password'});
   const grain = new FoodType({name:'grain'});
-  const rice =new Food({name:'rice',type:grain, description:'cracked rice'});
+  const rice =new Food({name:'rice',foodtype: grain, description:'cracked rice'});
 
   const schedule = new Schedule({user: user, longitude:40.39, latitude:30.23, hours:10, minutes:30, food:rice, duckCount:10, feedAmount:5, startDate:today});
 
@@ -30,15 +30,15 @@ describe('Model Utilities Tests', function(){
     assert.equal(rice.name, 'rice');
   });
   it('Created Food has type grain', function(){
-    assert.equal(rice.type.name, 'grain');
+    assert.equal(rice.foodtype.name, 'grain');
   });
 
   it('Created Schedule has food type grain', function(){
-    assert.equal(schedule.food.type.name, 'grain');
+    assert.equal(schedule.food.foodtype.name, 'grain');
   });
 
   it('Derived Feeding has food type grain', function(){
-    assert.equal(feeding.food.type.name, 'grain');
+    assert.equal(feeding.food.foodtype.name, 'grain');
   });
 
   it('Derived Feeding has time year 2018', function(){

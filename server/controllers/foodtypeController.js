@@ -105,7 +105,7 @@ module.exports.delete = function (req, res, next) {
         },
 
         foods: function(callback) {
-          Food.find({ 'type': req.params.id })
+          Food.find({ 'foodtype': req.params.id })
           .exec(callback);
         },
 
@@ -126,7 +126,7 @@ module.exports.delete = function (req, res, next) {
               return next(err);
             }
             else {
-              rres.status(200).json(foodtype);
+              res.status(200).json(foodtype);
             }
           });
         }

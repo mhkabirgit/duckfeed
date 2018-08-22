@@ -1,7 +1,7 @@
 import React, { Component} from 'react';
 import {PropTypes} from 'prop-types';
 import { Link } from 'react-router-dom';
-import { reduxForm, Field, change, SubmissionError } from 'redux-form';
+import { reduxForm, Field, SubmissionError } from 'redux-form';
 import renderField from './renderField';
 import { addFeed, addFeedSuccess, addFeedFailure} from '../actions/feedActions';
 
@@ -57,15 +57,17 @@ class AddFeedForm extends Component {
   }
 
   componentDidMount(){
-    this.props.resetMe();
-    this.props.change('user', this.props.user._id)
-    // this.props.fetchTopFoods();
-    this.props.fetchFoods();
+    if(this.props.user && this.props.authenticated === 'authenticated'){
+      this.props.resetMe();
+      this.props.change('user', this.props.user._id)
+      // this.props.fetchTopFoods();
+      this.props.fetchFoods();
+    }
   }
 
   componentWillReceiveProps(nextProps){
     if(nextProps.newFeed.feed && !nextProps.newFeed.error ){
-      this.context.router.history.push('/');
+      this.context.router.history.push('/feed/all');
     }
   }
 
@@ -80,75 +82,77 @@ class AddFeedForm extends Component {
 
 
   render(){
-    // if(!this.props.user && this.props.authenticated !== 'authenticated'){
-    //     return (<div className='jumbotron jumbotron-fluid'>
-    //                 <h5>Unauthorized</h5>
-    //             </div>);
-    // }
+
+    if(!this.props.user || this.props.authenticated !== 'authenticated'){
+        return (<div className='jumbotron jumbotron-fluid'>
+                    <h5>Unauthorized</h5>
+                </div>);
+    }
+
     const {handleSubmit, submitting} = this.props;
     return (
-      <div className='container'>
-        <form onSubmit={handleSubmit(dispatchAddFeed)}>
+        <div className='container'>
+          <form onSubmit={handleSubmit(dispatchAddFeed)}>
 
-        <Field
-               name="user"
-               type="hidden"
-               component="input"/>
+          <Field
+                 name="user"
+                 type="hidden"
+                 component="input"/>
 
 
-        <div>
-        <label>Date and Time &nbsp;&nbsp;</label>
-        <Field
-               name="time"
-               type="datetime-local"
-               component="input"/>
+          <div>
+          <label>Date and Time &nbsp;&nbsp;</label>
+          <Field
+                 name="time"
+                 type="datetime-local"
+                 component="input"/>
+          </div>
+
+          <div>
+          <label>Food &nbsp;&nbsp;</label>
+          <Field
+                name="food"
+                component="select">
+                {this.renderFoodOptions()}
+          </Field>
+          </div>
+
+          <Field
+                name="longitude"
+                type="text"
+                component={ renderField }
+                label="@longitude*" />
+          <Field
+                name="latitude"
+                type="text"
+                component={ renderField }
+                label="@latitude*" />
+
+          <Field
+                name="duckCount"
+                type="text"
+                component={ renderField }
+                label="@duckCount*" />
+          <Field
+                name="feedAmount"
+                type="text"
+                component={ renderField }
+                label="@feedAmount*" />
+          <div>
+              <button
+                  type="submit"
+                  className="btn btn-primary"
+                  disabled={ submitting }>
+                  Submit
+              </button>
+              <Link
+                  to="/"
+                  className="btn btn-error"> Cancel
+              </Link>
+          </div>
+          </form>
         </div>
-
-        <div>
-        <label>Food &nbsp;&nbsp;</label>
-        <Field
-              name="food"
-              component="select">
-              {this.renderFoodOptions()}
-        </Field>
-        </div>
-
-        <Field
-              name="longitude"
-              type="text"
-              component={ renderField }
-              label="@longitude*" />
-        <Field
-              name="latitude"
-              type="text"
-              component={ renderField }
-              label="@latitude*" />
-
-        <Field
-              name="duckCount"
-              type="text"
-              component={ renderField }
-              label="@duckCount*" />
-        <Field
-              name="feedAmount"
-              type="text"
-              component={ renderField }
-              label="@feedAmount*" />
-        <div>
-            <button
-                type="submit"
-                className="btn btn-primary"
-                disabled={ submitting }>
-                Submit
-            </button>
-            <Link
-                to="/"
-                className="btn btn-error"> Cancel
-            </Link>
-        </div>
-        </form>
-      </div>
-    );
+      );
   }
 }
 

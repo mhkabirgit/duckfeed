@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import AllFoodtypesContainer from '../containers/AllFoodtypesContainer';
 
 export default class AllFoodtypesComponent extends Component {
 
@@ -14,11 +13,12 @@ export default class AllFoodtypesComponent extends Component {
       return this.props.foodtypeList.foodtypes.map((foodtype, i) => {
           return (
             <tr>
-              <td>{foodtype.name} </td>
+
+              <td>{foodtype.name}</td>
               <td>
                   <Link to={{
                       pathname:`/foodtype/update/${foodtype._id}`,
-                      foodtype:foodtype
+                      foodtypeid:foodtype._id
                       }}>
                       <button type='button' class='btn btn-primary'>Update</button>
                   </Link>

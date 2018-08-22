@@ -39,7 +39,7 @@ app.use(session({
   secret:'bestsecretnosecret',
   resave: true,
   saveUninitialized:true,
-  cookie: {expires: 600000}
+  cookie: {expires: 1200000}
 }));
 
 // Previously logged in user might have might have sent the cookie saved in its browser
@@ -54,16 +54,6 @@ app.use((req, res, next) => {
     next();
   }
 });
-
-var sessionChecker = (req, res, next) => {
-  if(req.session.user && req.cookies.user_sid) {
-    return next();
-  }
-  else {
-      res.json({statusCode:401, title: 'Unauthorized'});
-  }
-};
-
 
 app.use('/', indexRouter);
 app.use('/users', userRouter);

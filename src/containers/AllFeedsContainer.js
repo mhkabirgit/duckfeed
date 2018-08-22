@@ -4,6 +4,8 @@ import {fetchFeedList, fetchFeedListSuccess, fetchFeedListFailure, resetFeedList
 
 function mapStateToProps(state){
   return {
+    user: state.user.user,
+    authenticated: state.user.status,
     feedList: state.feed.feedList
   }
 }

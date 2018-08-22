@@ -4,6 +4,8 @@ import {fetchFoodtypeList, fetchFoodtypeListSuccess, fetchFoodtypeListFailure, r
 
 function mapStateToProps(state){
   return {
+    user: state.user.user,
+    authenticated: state.user.status,
     foodtypeList: state.foodtype.foodtypeList
   }
 }

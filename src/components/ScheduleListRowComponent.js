@@ -16,8 +16,8 @@ export default class ScheduleListRowComponent extends Component {
         <td> {this.props.schedule.longitude} </td>
         <td> {this.props.schedule.latitude} </td>
         <td> {this.props.schedule.hours}:{this.props.schedule.minutes} </td>
-        <td> {this.props.schedule.startDate.split("T")[0]} </td>
-        <td> {this.props.schedule.endDate.split("T")[0]} </td>
+        <td> {this.props.schedule.startDate? this.props.schedule.startDate.split("T")[0]: ' '} </td>
+        <td> {this.props.schedule.endDate? this.props.schedule.endDate.split("T")[0]: ' '} </td>
         <td>
             <Link to={{
                 pathname:`/schedule/update/${this.props.schedule._id}`,

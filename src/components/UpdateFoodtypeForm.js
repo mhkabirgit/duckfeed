@@ -1,9 +1,9 @@
 import React, { Component} from 'react';
 import {PropTypes} from 'prop-types';
-import { Link } from 'react-router-dom';
-import { reduxForm, Field, SubmissionError } from 'redux-form';
+import { Link, Redirect } from 'react-router-dom';
+import { reduxForm, Field, initialValues, SubmissionError } from 'redux-form';
 import renderField from './renderField';
-import { addFoodtype, addFoodtypeSuccess, addFoodtypeFailure} from '../actions/foodtypeActions';
+import { updateFoodtype, updateFoodtypeSuccess, updateFoodtypeFailure} from '../actions/foodtypeActions';
 
 //Client side validation
 function validate(values){
@@ -17,31 +17,34 @@ function validate(values){
   return hasError && errors;
 }
 
-const dispatchAddFoodtype = (values, dispatch) => {
-  return dispatch(addFoodtype(values))
+const dispatchUpdateFoodtype = (values, dispatch) => {
+  return dispatch(updateFoodtype(values))
         .then((result) => {
           if(result.payload.respone && result.payload.response.status !== 200){
-            dispatch(addFoodtypeFailure(result.payload.response.data));
+            dispatch(updateFoodtypeFailure(result.payload.response.data));
             throw new SubmissionError(result.payload.response.data);
           }
-          dispatch(addFoodtypeSuccess(result.payload.data));
+          dispatch(updateFoodtypeSuccess(result.payload.data));
         });
 }
 
-class AddFoodtypeForm extends Component {
+class UpdateFoodtypeForm extends Component {
   static contextTypes = {
     router: PropTypes.object
   }
 
   componentDidMount(){
-    if(this.props.user && this.props.authenticated === 'authenticated'){
+    if(this.props.user && this.props.authenticated === 'authenticated') {
+      const { match: { params } } = this.props;
       this.props.resetMe();
+      this.props.fetchActiveFoodtype(params.id);
+      // this.props.initialValues(this.props.activefoodtype);
     }
   }
 
   componentWillReceiveProps(nextProps){
-    if(nextProps.newFoodtype.foodtype && ! nextProps.newFoodtype.error){
-      this.context.router.history.push('/foodtype/all');
+    if(nextProps.activeFoodtype.foodtype && ! nextProps.activeFoodtype.error){
+      this.context.router.history.push('/');
     }
   }
 
@@ -52,11 +55,11 @@ class AddFoodtypeForm extends Component {
                     <h5>Unauthorized</h5>
                 </div>);
     }
-
     const {handleSubmit, submitting} = this.props;
     return (
       <div className='container'>
-        <form onSubmit={handleSubmit(dispatchAddFoodtype)}>
+        <h5>Update Foodtype</h5>
+        <form onSubmit={handleSubmit(dispatchUpdateFoodtype)}>
         <Field
                name="name"
                type="text"
@@ -81,6 +84,6 @@ class AddFoodtypeForm extends Component {
 }
 
 export default reduxForm({
-  form: 'AddFoodtypeForm',
+  form: 'UpdateFoodtypeForm',
   validate
-})(AddFoodtypeForm);
+})(UpdateFoodtypeForm);

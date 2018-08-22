@@ -58,16 +58,17 @@ class AddScheduleForm extends Component {
   }
 
   componentDidMount(){
-    this.props.resetMe();
-    this.props.change('user', this.props.user._id);
-    //this.props.fetchTopFoods();
-    this.props.fetchFoods();
-
+    if(this.props.user && this.props.authenticated === 'authenticated') {
+      this.props.resetMe();
+      this.props.change('user', this.props.user._id);
+      //this.props.fetchTopFoods();
+      this.props.fetchFoods();
+    }
   }
 
   componentWillReceiveProps(nextProps){
     if(nextProps.newSchedule.schedule && !nextProps.newSchedule.error ){
-      this.context.router.history.push('/');
+      this.context.router.history.push('/schedule/all');
     }
   }
 
@@ -82,11 +83,13 @@ class AddScheduleForm extends Component {
 
 
   render(){
-    // if(!this.props.user && this.props.authenticated !== 'authenticated'){
-    //     return (<div className='jumbotron jumbotron-fluid'>
-    //                 <h5>Unauthorized</h5>
-    //             </div>);
-    // }
+
+    if(!this.props.user || this.props.authenticated !== 'authenticated'){
+        return (<div className='jumbotron jumbotron-fluid'>
+                    <h5>Unauthorized</h5>
+                </div>);
+    }
+
     const {handleSubmit, submitting} = this.props;
     return (
       <div className='container'>

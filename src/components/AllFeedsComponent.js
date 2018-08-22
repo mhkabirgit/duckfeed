@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import AllFeedsContainer from '../containers/AllFeedsContainer';
 import FeedListRowComponent from './FeedListRowComponent';
 
 export default class AllFeedsComponent extends Component {

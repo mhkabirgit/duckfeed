@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import AllSchedulesContainer from '../containers/AllSchedulesContainer';
 import ScheduleListRowComponent from './ScheduleListRowComponent';
 
 export default class AllSchedulesComponent extends Component {

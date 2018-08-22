@@ -4,6 +4,8 @@ import {fetchScheduleList, fetchScheduleListSuccess, fetchScheduleListFailure, r
 
 function mapStateToProps(state){
   return {
+    user: state.user.user,
+    authenticated: state.user.status,
     scheduleList: state.schedule.scheduleList
   }
 }

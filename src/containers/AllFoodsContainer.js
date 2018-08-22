@@ -4,6 +4,8 @@ import {fetchFoodList, fetchFoodListSuccess, fetchFoodListFailure, resetFoodList
 
 function mapStateToProps(state){
   return {
+    user: state.user.user,
+    authenticated: state.user.status,
     foodList: state.food.foodList
   }
 }

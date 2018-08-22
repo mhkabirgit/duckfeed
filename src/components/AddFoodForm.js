@@ -42,14 +42,16 @@ class AddFoodForm extends Component {
   }
 
   componentDidMount(){
-    this.props.resetMe();
-    // this.props.fetchTopFoodtypes();
-    this.props.fetchFoodtypes();
+    if(this.props.user && this.props.authenticated === 'authenticated'){
+      this.props.resetMe();
+      // this.props.fetchTopFoodtypes();
+      this.props.fetchFoodtypes();
+    }
   }
 
   componentWillReceiveProps(nextProps){
     if(nextProps.newFood.food && !nextProps.newFood.error ){
-      this.context.router.history.push('/');
+      this.context.router.history.push('/food/all');
     }
   }
 
@@ -63,11 +65,13 @@ class AddFoodForm extends Component {
   }
 
   render(){
-    // if(!this.props.user && this.props.authenticated !== 'authenticated'){
-    //     return (<div className='jumbotron jumbotron-fluid'>
-    //                 <h5>Unauthorized</h5>
-    //             </div>);
-    // }
+
+    if(!this.props.user || this.props.authenticated !== 'authenticated'){
+        return (<div className='jumbotron jumbotron-fluid'>
+                    <h5>Unauthorized</h5>
+                </div>);
+    }
+
     const {handleSubmit, submitting} = this.props;
     return (
       <div className='container'>
