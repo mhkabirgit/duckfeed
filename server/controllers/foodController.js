@@ -12,7 +12,7 @@ module.exports.all = function(req, res, next) {
     .exec(function (err, foods) {
       if (err) { return next(err); }
       //Successful, so send the response
-      return res.status(200).json({foods: foods});
+      res.status(200).json(foods);
     });
 };
 
@@ -29,7 +29,7 @@ module.exports.detail = function(req, res,next) {
             return next(err);
         }
         else {
-            return res.status(200).json({food:food});
+            res.status(200).json(food);
         }
         });
   };
@@ -38,8 +38,8 @@ module.exports.detail = function(req, res,next) {
 module.exports.add = [
     // Validate fields.
     body('name', 'Name must not be empty.').isLength({ min: 1 }).trim(),
-    body('type', 'Type must not be empty.').isLength({ min: 1 }).trim(),
-    body('description', 'Synopsis must not be empty.').trim(),
+    body('foodtype', 'Foodtype must not be empty.').isLength({ min: 1 }).trim(),
+    body('description', 'Description must not be empty.').trim(),
 
     // Sanitize fields (using wildcard).
     sanitizeBody('*').trim().escape(),
@@ -50,26 +50,26 @@ module.exports.add = [
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             // There are errors. Render form again with sanitized values/error messages.
-            return res.status(400).json({errors: errors.array()});
+            res.status(400).json({error: errors.array()});
         }
         else {
-          Food.findOne({name: req.body.name, type:req.body.type})
+          Food.findOne({name: req.body.name, type:req.body.foodtype})
           .exec(function(err, found){
               if(err) {
                 return next(err);
               }
               if(found) {
-                return res.status(400).json({error: 'This Food Exists'});
+                res.status(400).json({error: 'This Food Exists'});
               }
               else {
                 var food = new Food(
                   { name: req.body.name,
-                    type: req.body.type,
+                    foodtype: req.body.foodtype,
                     description: req.body.description
                    });
                 food.save(function (err) {
                     if (err) { return next(err); }
-                       return res.status(200).json({food:food});
+                       res.status(200).json(food);
                     });
                 }
           });
@@ -94,7 +94,7 @@ module.exports.update = [
 
         if (!errors.isEmpty()) {
             // There are errors. Render form again with sanitized values/error messages.
-            return res.status(400).json({errors: errors.array() });
+            res.status(400).json({error: errors.array() });
         }
         else {
           // Create a Food object with escaped/trimmed data and old id.
@@ -108,7 +108,7 @@ module.exports.update = [
             Food.findByIdAndUpdate(req.params.id, food, {}, function (err,food) {
                 if (err) { return next(err); }
                    // Successful - redirect to book detail page.
-                   return res.status(200).json({food:food});
+                   res.status(200).json(food);
                 });
         }
     }
@@ -138,32 +138,41 @@ module.exports.delete = function (req, res, next) {
             return next(err);
         }
         if(results.feeds.length>0){
-          return res.status(400).json({error: 'This food has feed, cannot be deleted'} );
+          res.status(400).json({error: 'This food has feed, cannot be deleted'} );
         }
         else if(results.schedules.length>0){
-          return res.status(400).json({error: 'This food has schedule, cannot be deleted'} );
+          res.status(400).json({error: 'This food has schedule, cannot be deleted'} );
         }
         else{
           Food.findByIdAndRemove(results.food.id)
-          .exec(function(err){
+          .exec(function(err, food){
             if(err) {
               return next(err);
             }
             else {
-              return res.status(200).json({status: 'success'});
+              res.status(200).json(food);
             }
           });
         }
     });
   };
 
+
   module.exports.topfoodtypes = function(req, res, next){
+    let topfoodtypes = [];
     Food.aggregate(
-      [{"$group": {_id: "$type", "count": {$sum:1}}},
-        {"$sort": {"count":-1}}])
-        .limit(20)
-        .excec(function(err, toptypes) {
-          if(err){ return next(err)}
-          return res.status(200).json(toptypes);
-        });
-  }
+      [ {$group: { _id: {foodtype: "$foodtype"}, count: {$sum:1}}},
+        {$sort: {count:-1}},
+        {$limit: 10}])
+        .exec(function(err, result) {
+          if(err){
+            return next(err);
+          }
+          if(result.length>0) {
+            result.map((object) => {
+              topfoodtypes.push(object._id.foodtype);
+          });
+          res.status(200).json(topfoodtypes);
+        }
+      });
+  };

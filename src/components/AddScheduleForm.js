@@ -59,8 +59,10 @@ class AddScheduleForm extends Component {
 
   componentDidMount(){
     this.props.resetMe();
-    //Uncomment after populating data at the backend
+    this.props.change('user', this.props.user._id);
     //this.props.fetchTopFoods();
+    this.props.fetchFoods();
+
   }
 
   componentWillReceiveProps(nextProps){
@@ -70,7 +72,10 @@ class AddScheduleForm extends Component {
   }
 
   renderFoodOptions(){
-    return this.props.topFoods.foods.map((food, i) =>{
+    // return this.props.topfoods.foods.map((food, i) =>{
+    //   return (<option value={food._id}>{food.name}</option>);
+    // });
+    return this.props.foods.foods.map((food, i) =>{
       return (<option value={food._id}>{food.name}</option>);
     });
   }
@@ -90,8 +95,7 @@ class AddScheduleForm extends Component {
         <Field
                name="user"
                type="hidden"
-               component="input"
-               value={this.props.user._id}/>
+               component="input"/>
 
         <div>
         <label>Time &nbsp;&nbsp;</label>

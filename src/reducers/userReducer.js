@@ -6,7 +6,7 @@ import {
 } from '../actions/userActions';
 
 
-const INITIAL_STATE = {user: null, status:null, error:null, loading: false};
+const INITIAL_STATE = {user: { "_id" : "5b7a7608eef2e71910291bf1", "username" : "admin", "email" : "admin@admin.com"}, status:null, error:null, loading: false};
 
 export default function(state = INITIAL_STATE, action) {
   let error;

@@ -10,14 +10,14 @@ module.exports.all = function(req, res, next) {
     .exec(function (err, feeds) {
       if (err) { return next(err); }
         //Successful, so send the response
-        return res.status(200).json({feeds: feeds});
+        res.status(200).json(feeds);
     });
 };
 
 module.exports.detail = function(req, res,next) {
   Feed.findById(req.params.id)
-  .populate(user)
-  .populate(food)
+  .populate('user')
+  .populate('food')
   .exec(function(err, feed){
         if(err) {
             return next(err);
@@ -28,7 +28,7 @@ module.exports.detail = function(req, res,next) {
             return next(err);
         }
         else {
-            return res.status(200).json({feed:feed});
+            res.status(200).json(feed);
         }
         });
   };
@@ -53,7 +53,7 @@ module.exports.add = [
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             // There are errors. Render form again with sanitized values/error messages.
-            return res.status(400).json({errors: errors.array()});
+            res.status(400).json({error: errors.array()});
         }
         else {
                 let time = new Date(req.body.time);
@@ -68,7 +68,7 @@ module.exports.add = [
                    });
                 feed.save(function (err) {
                     if (err) { return next(err); }
-                       return res.status(200).json({feed:feed});
+                       res.status(200).json(feed);
                     });
                 }
       }
@@ -94,7 +94,7 @@ module.exports.update = [
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
           // There are errors. Render form again with sanitized values/error messages.
-          return res.status(400).json({errors: errors.array()});
+          res.status(400).json({error: errors.array()});
       }
       else {
         let time = new Date(req.body.time);
@@ -110,7 +110,7 @@ module.exports.update = [
         Feed.findByIdAndUpdate(req.params.id, feed, {}, function (err,feed) {
                      if (err) { return next(err); }
                         // Successful - redirect to book detail page.
-                        return res.status(200).json({feed:feed});
+                        res.status(200).json(feed);
                      });
            }
     }
@@ -118,21 +118,30 @@ module.exports.update = [
 
 module.exports.delete = function (req, res, next) {
   Feed.findByIdAndRemove(req.params.id)
-  .exec(function(err, food) {
+  .exec(function(err, feed) {
     if(err) {
       return next(err);
     }
-    return res.status(200).json({status: 'success'});
+    res.status(200).json(feed);
   });
 };
 
+
 module.exports.topfoods = function(req, res, next){
-  Food.aggregate(
-    [{"$group": {_id: "$food", "count": {$sum:1}}},
-      {"$sort": {"count":-1}}])
-      .limit(20)
-      .excec(function(err, topfoods) {
-        if(err){ return next(err)}
-        return res.status(200).json(topfoods);
-      });
+  let topfoods = [];
+  Feed.aggregate(
+    [ {$group: { _id: {food: "$food"}, count: {$sum:1}}},
+      {$sort: {count:-1}},
+      {$limit: 10}])
+      .exec(function(err, result) {
+        if(err){
+          return next(err);
+        }
+        if(result.length>0) {
+          result.map((object) => {
+            topfoods.push(object._id.food);
+        });
+        res.status(200).json(topfoods);
+      }
+    });
 };

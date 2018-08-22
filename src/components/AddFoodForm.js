@@ -13,8 +13,13 @@ function validate(values){
     errors.name = 'Enter name';
     hasError = true;
   }
-  if(!values.type || values.type.trim() === ''){
+  if(!values.foodtype || values.foodtype.trim() === ''){
     errors.time = 'Enter type';
+    hasError = true;
+  }
+
+  if(!values.description || values.description.trim() === ''){
+    errors.time = 'Enter description';
     hasError = true;
   }
   return hasError && errors;
@@ -38,8 +43,8 @@ class AddFoodForm extends Component {
 
   componentDidMount(){
     this.props.resetMe();
-    //Uncomment after populating data at the backend
-    //this.props.fetchTopFoodtypes();
+    // this.props.fetchTopFoodtypes();
+    this.props.fetchFoodtypes();
   }
 
   componentWillReceiveProps(nextProps){
@@ -49,7 +54,10 @@ class AddFoodForm extends Component {
   }
 
   renderFoodtypeOptions(){
-    return this.props.topTypes.types.map((foodtype, i) =>{
+    // return this.props.topFoodtypes.foodtypes.map((foodtype, i) =>{
+    //   return (<option value={foodtype._id}>{foodtype.name}</option>);
+    // });
+    return this.props.foodtypes.foodtypes.map((foodtype, i) =>{
       return (<option value={foodtype._id}>{foodtype.name}</option>);
     });
   }
@@ -66,7 +74,7 @@ class AddFoodForm extends Component {
         <form onSubmit={handleSubmit(dispatchAddFood)}>
         <label>Food Type &nbsp;</label>
         <Field
-              name="type"
+              name="foodtype"
               component="select">
               {this.renderFoodtypeOptions()}
               label="@type*"

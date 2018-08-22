@@ -1,7 +1,7 @@
 import React, { Component} from 'react';
 import {PropTypes} from 'prop-types';
 import { Link } from 'react-router-dom';
-import { reduxForm, Field, SubmissionError } from 'redux-form';
+import { reduxForm, Field, change, SubmissionError } from 'redux-form';
 import renderField from './renderField';
 import { addFeed, addFeedSuccess, addFeedFailure} from '../actions/feedActions';
 
@@ -58,8 +58,9 @@ class AddFeedForm extends Component {
 
   componentDidMount(){
     this.props.resetMe();
-    //Uncomment after populating data at the backend
-    //this.props.fetchTopFoods();
+    this.props.change('user', this.props.user._id)
+    // this.props.fetchTopFoods();
+    this.props.fetchFoods();
   }
 
   componentWillReceiveProps(nextProps){
@@ -69,7 +70,10 @@ class AddFeedForm extends Component {
   }
 
   renderFoodOptions(){
-    return this.props.topFoods.foods.map((food, i) =>{
+    // return this.props.topfoods.foods.map((food, i) =>{
+    //   return (<option value={food._id}>{food.name}</option>);
+    // });
+    return this.props.foods.foods.map((food, i) =>{
       return (<option value={food._id}>{food.name}</option>);
     });
   }
@@ -89,8 +93,8 @@ class AddFeedForm extends Component {
         <Field
                name="user"
                type="hidden"
-               component="input"
-               value={this.props.user._id}/>
+               component="input"/>
+
 
         <div>
         <label>Date and Time &nbsp;&nbsp;</label>

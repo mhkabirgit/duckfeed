@@ -184,10 +184,10 @@ export function topFoods() {
   }
 }
 
-export function topFoodsSuccess(topFoods) {
+export function topFoodsSuccess(topfoods) {
   return {
     type: TOP_FOODS_SUCCESS,
-    payload: topFoods
+    payload: topfoods
   }
 }
 

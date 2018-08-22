@@ -9,7 +9,7 @@ import {
 
 const INITIAL_STATE = {
   foodList: {foods: [], error: null, loading: false},
-  topTypes: {types: [{_id:1, name:'Grain'}, {_id:2, name:'Peck'}], error: null, loading: false},
+  topFoodtypes: {foodtypes: [], error: null, loading: false},
   activeFood: {food: null, error: null, loading: false},
   newFood: {food: null, error: null, loading: false},
   deletedFood: {food: null, error: null, loading: false}
@@ -63,14 +63,14 @@ export default function(state=INITIAL_STATE, action){
         return {...state, deletedFood: {food: null, error: null, loading: false} };
 
     case TOP_FOODTYPES:
-        return {...state, topTypes: {types: [], error: null, loading: true} };
+        return {...state, topFoodypes: {foodtypes: [], error: null, loading: true} };
     case TOP_FOODTYPES_SUCCESS:
-        return {...state, toptypes: {types: action.payload, error: null, loading: false} };
+        return {...state, topFoodtypes: {foodtypes: action.payload, error: null, loading: false} };
     case TOP_FOODTYPES_FAILURE:
         error=action.payload || {message: action.payload.message};
-        return {...state, topTypes: {types: [], error: error, loading: false} };
+        return {...state, topFoodtypes: {foodtypes: [], error: error, loading: false} };
     case RESET_TOP_FOODTYPES:
-        return {...state, topTypes: {types: [], error: null, loading: false} };
+        return {...state, topFoodtypes: {foodtypes: [], error: null, loading: false} };
 
     default:
         return state;
