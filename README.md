@@ -28,7 +28,7 @@ React and Redux for Frontend
  Its as a single page application comes with a menu bar and a home page. The application persists foodtypes, foods, feeds, and schedules in the database. The home page has the links to view all foodtypes, all foods, all feeds, and all schedules. The homepage and all views are public does not need any user authentication. Menu bar has the menus to add new foodtype, food, feed, and schedule. It also has the menus to signin, signout, and signup. A new user can signup using signup. Already signed up user can sign in and sign out using signin and signout menus respectively. To add any of the above objects into the application a user must sign in, i.e., authenticated. When the collection of any of the above object is shown in its all view component, each object is rendered with the links to update and delete. Only the authenticated user is allowed to update or delete an object. Every food has a foodtype. Application allows the user to pick a foodtype from select options when she wants to add a new food into the application . Similarly, application allows user to pick food for feed or schedule from select options when she wants to add a new feed or schedule into the application.
 
   ## High Level Component Diagram
-  Available in 'design/react/components.md' file.
+  Available in 'design/react/components.md' as well as in 'design/react/components.png' files.
 
   ## State of the application
   Available in 'design/redux/state.md' file.
