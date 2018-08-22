@@ -7,8 +7,8 @@ var Feed = require('../models/feed');
 var Schedule = require('../models/schedule');
 
 module.exports.all = function(req, res, next) {
-  Food.find({}, 'name type description')
-    .populate('type')
+  Food.find({}, 'name foodtype description')
+    .populate('foodtype')
     .exec(function (err, foods) {
       if (err) { return next(err); }
       //Successful, so send the response
@@ -18,7 +18,7 @@ module.exports.all = function(req, res, next) {
 
 module.exports.detail = function(req, res,next) {
   Food.findById(req.params.id)
-  .populate(type)
+  .populate('foodtype')
   .exec(function(err, food){
         if(err) {
             return next(err);

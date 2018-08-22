@@ -12,7 +12,7 @@ module.exports.all = function(req, res, next) {
     .exec(function (err, schedules) {
       if (err) { return next(err); }
       //Successful, so send the response
-      return res.status(200).json({schedules: schedules});
+      res.status(200).json(schedules);
     });
 };
 
@@ -30,7 +30,7 @@ module.exports.detail = function(req, res,next) {
             return next(err);
         }
         else {
-            return res.status(200).json({schedule:schedule});
+            res.status(200).json(schedule);
         }
         });
   };
@@ -56,7 +56,7 @@ module.exports.add = [
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             // There are errors. Render form again with sanitized values/error messages.
-            return res.status(400).json({errors: errors.array()});
+            res.status(400).json({errors: errors.array()});
         }
         else {
                 let times = req.body.time.split(":");
@@ -78,7 +78,7 @@ module.exports.add = [
                    });
                 schedule.save(function (err) {
                     if (err) { return next(err); }
-                       return res.status(200).json({schedule:schedule});
+                       res.status(200).json(schedule);
                     });
                 }
       }
@@ -104,7 +104,7 @@ module.exports.update = [
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
           // There are errors. Render form again with sanitized values/error messages.
-          return res.status(400).json({errors: errors.array()});
+          res.status(400).json({errors: errors.array()});
       }
       else {
         Schedule.findById(req.params.id)
@@ -139,7 +139,7 @@ module.exports.update = [
                   Schedule.findByIdAndUpdate(req.params.id, schedule, {}, function (err,schedule) {
                                if (err) { return next(err); }
                                   // Successful - redirect to book detail page.
-                                  return res.status(200).json({schedule:schedule});
+                                  res.status(200).json(schedule);
                                 });
               }
               });
@@ -149,11 +149,11 @@ module.exports.update = [
 
 module.exports.delete = function (req, res, next) {
   Schedule.findByIdAndRemove(req.params.id)
-  .exec(function(err, food) {
+  .exec(function(err, schedule) {
     if(err) {
       return next(err);
     }
-    return res.status(200).json({status:'success'});
+    res.status(200).json(schedule);
   });
 };
 
@@ -174,7 +174,7 @@ module.exports.confirm = function(req, res,next) {
           lSchedule.findByIdAndUpdate(req.params.id, schedule, {}, function (err,schedule) {
                        if (err) { return next(err); }
                           // Successful - redirect to book detail page.
-                          return res.status(200).json({schedule:schedule});
+                          res.status(200).json(schedule);
                         });
           }
         });
@@ -197,7 +197,7 @@ module.exports.confirm = function(req, res,next) {
             Schedule.findByIdAndUpdate(req.params.id, endSchedule, {}, function (err,schedule) {
                          if (err) { return next(err); }
                             // Successful - redirect to book detail page.
-                            return res.status(200).json({schedule:schedule});
+                            res.status(200).json(schedule);
                           });
             }
           });
