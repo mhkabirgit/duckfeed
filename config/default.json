@@ -1,5 +1,5 @@
 {
   "ClientPort":3005,
   "ServerPort":3006,
-  "DBHost": "mongodb://127.0.0.1:27017/duckfeed"
+  "DBHost" : "mongodb://duckfeed:passw0rd@ds047772.mlab.com:47772/duckfeed"
 }

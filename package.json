@@ -3,14 +3,16 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "set PORT=3005 && react-scripts start",
-    "build": "react-scripts build",
-    "test-schedule": "node ./server/service/scheduleThread",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
+    "start":"npm run server-start && npm run client-start",
+    "heroku-postbuild": "npm install && npm run client-build",
+    "client-start": "set PORT=3005 && react-scripts start",
+    "client-build": "react-scripts build",
+    "client-test": "react-scripts test --env=jsdom",
+    "client-eject": "react-scripts eject",
     "server-start": "node ./server/server",
-    "server-test": "mocha --timeout 5000 test/server/**/*.js && node ./server/server",
-    "dev-start": "concurrently --kill-others-on-fail \"nodemon ./server/server\" \"npm run start\""
+    "server-test": "mocha --timeout 5000 test/server/**/*.js && npm run server-start",
+    "test-server-schedule": "node ./server/service/scheduleThread",
+    "dev-start": "concurrently --kill-others-on-fail \"nodemon ./server/server\" \"npm run client-start\""
   },
   "dependencies": {
     "async": "^2.6.1",
